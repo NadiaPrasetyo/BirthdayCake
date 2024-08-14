@@ -19,8 +19,46 @@ function process () {
 
     // make the form not restart the page
     event.preventDefault();
+
+    
+    let cake = document.getElementById("cake");
+    cake.addEventListener("click", addCandle);
     
 }
+
+/* Template for candle
+<div class = "candle">
+                    <div class = "flame">
+                    </div>
+                    <div class = "candleTop">
+                    </div>
+                    <div class = "candleBottom">
+                    </div>
+                </div>
+*/
+
+function addCandle(eventData){
+
+    console.log('event happened!');
+    console.log(eventData.x);
+    console.log(eventData.y);
+    
+    let candle = document.createElement("div");
+    candle.classList.add("candle");
+    let flame = document.createElement("div");
+    flame.classList.add("flame");
+    let candleTop = document.createElement("div");
+    candleTop.classList.add("candleTop");
+    let candleBottom = document.createElement("div");
+    candleBottom.classList.add("candleBottom");
+
+    candle.appendChild(flame);
+    candle.appendChild(candleTop);
+    candle.appendChild(candleBottom);
+
+    cake.appendChild(candle);
+}
+
 
 /**
  * Function to validate the name input
