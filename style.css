@@ -4,7 +4,7 @@
 /* Style file for Birtday Cake */
 
 body {
-    background-color: #efc7e6;
+    background-color: #E6E6FA;
     display: flex;
     flex-direction: column;
     margin: 0;
@@ -12,13 +12,13 @@ body {
 }
 
 .topContainer{
-    background-color: #f7d9f4;
+    background-color: #E6E6FA;
     padding: 10px;
     text-align: center;
 }
 
 .middleContainer{
-    background-color: #fa44e8;
+    background-color: #E6E6FA;
     height: 400px;
     padding: 10px;
     text-align: center;
@@ -26,7 +26,7 @@ body {
 
 #cake{
     position: relative;
-    background-color: aqua;
+    /* background-color: aqua; */
     display: grid;
     margin-left: auto;
     margin-right: auto;
@@ -40,22 +40,20 @@ body {
     background-color: transparent;
     height: 50px;
     width: 10px;
+    border-bottom-left-radius: 15%;
+    border-bottom-right-radius: 15%;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 10px;
     z-index: 5;
 }
 
 .candleTop{
     position: absolute;
     top: 10px;
-    background-color: #00ff80;
+    background-color: #e7e0c5;
     border-radius: 50%;
     height: 5px;
     width: 10px;
-    margin-left: auto;
-    margin-right: auto;
-    box-shadow: 0px 37px 10px 0px rgba(0, 0, 0, 0.5);
     z-index: 2;
 }
 
@@ -68,30 +66,37 @@ body {
     border-bottom: 12px solid red;
     border-bottom-left-radius: 50%;
     border-bottom-right-radius: 50%;
-    height: px;
+    height: 0px;
     width: 0px;
-    margin-left: auto;
-    margin-right: auto;
     z-index: 3;
-    box-shadow: 0px 0px 10px 0px rgba(255, 0, 0, 0.5);
+    filter: drop-shadow(0px 0px 5px rgba(255, 111, 0, 1));
 }
 
 .candleBottom{
     position: absolute;
     top: 12.5px;
-    background-color: #2e8459;
+    background-color: #d1cab1;
     border-bottom-left-radius: 15%;
     border-bottom-right-radius: 15%;
     height: 37.5px;
     width: 10px;
-    margin-left: auto;
-    margin-right: auto;
+    z-index: 1;
+    -webkit-box-shadow: 0 3px 2px -2px #777;
+       -moz-box-shadow: 0 3px 2px -2px #777;
+            box-shadow: 0 3px 2px -2px #777;
+}
+
+.shadow{
+    -webkit-box-shadow: 0 10px 6px -6px #777;
+       -moz-box-shadow: 0 10px 6px -6px #777;
+            box-shadow: 0 10px 6px -6px #777;
+
 }
 
 #topLayer{
     position: absolute;
     top: 100px;
-    background-color: #ed00d6;
+    background-color: #ffeffd;
     border-radius: 50%;
     height: 50px;
     width: 300px;
@@ -112,7 +117,7 @@ body {
 #layer2{
     position: absolute;
     top: 150px;
-    background-color: #571951;
+    background-color: #f7d9f4;
     border-bottom-left-radius: 50%;
     border-bottom-right-radius: 50%;
     height: 100px;
@@ -121,19 +126,25 @@ body {
 }
 
 
-#bottomLayer{
+.bottomLayer{
     position: absolute;
     top: 200px;
-    background-color: #000000;
+    background-color: #f7d9f4;
     border-bottom-left-radius: 50%;
     border-bottom-right-radius: 50%;
     height: 100px;
     width: 300px;
-    box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.25);
+}
+
+.shadow{
+        -webkit-box-shadow: 0 10px 6px -6px #777;
+           -moz-box-shadow: 0 10px 6px -6px #777;
+                box-shadow: 0 10px 6px -6px #777;
+   
 }
 
 .bottomContainer{
-    background-color: #b013a0;
+    background-color: #E6E6FA;
     padding: 10px;
     text-align: center;
 }
