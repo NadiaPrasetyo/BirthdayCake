@@ -211,6 +211,25 @@ button {
     margin-left: 0.5em;
 }
 
+/* Card animation */
+@keyframes slideIn {
+    from {
+        top: -100px;
+    }
+    to {
+        top: 100px;
+    }
+}
+
+@keyframes slideOut {
+    from {
+        top: 100px;
+    }
+    to {
+        top: -100%;
+    }
+}
+
 #Card {
     z-index: 100;
     position: absolute;
@@ -221,4 +240,6 @@ button {
     background-color: aquamarine;
     visibility: visible;
     border-radius: 15px;
-}
+    animation: slideIn 1s;
+    animation-fill-mode: forwards;
+}    

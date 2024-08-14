@@ -7,7 +7,9 @@ function process () {
     // alert ("Name: " + nameText + "\nBirthday: " + dobText + "\nFlavour: " + flavourText + "\nMessage: " + messageText);
 
     let card = document.getElementById("Card");
-    card.style.visibility = "hidden";
+    card.style.animation = "slideOut 2s";
+    card.style.animationFillMode = "forwards";
+    // change animation to slide out
 
     // make the form not restart the page
     event.preventDefault();
