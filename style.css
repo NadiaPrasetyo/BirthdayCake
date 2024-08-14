@@ -210,3 +210,14 @@ button {
      between the labels and their text fields */
     margin-left: 0.5em;
 }
+
+#Card {
+    z-index: 100;
+    position: absolute;
+    top: 100px;
+    /* make position horizontally in the center */
+    left: 40%;
+    background-color: aquamarine;
+    visibility: visible;
+    border-radius: 15px;
+}
