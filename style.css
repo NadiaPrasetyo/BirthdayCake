@@ -163,7 +163,7 @@ form {
     font-weight: 600;
     color: #000;
     /* make an underline border */
-    border-bottom: 2px dashed #000;
+    border-bottom: 2px dashed hsl(266, 59%, 60%);
 }
 
 ul {
@@ -195,7 +195,7 @@ textarea, select {
     width: 300px;
     box-sizing: border-box;
     /* Match form field borders */
-    border: 1px solid #000;
+    border: 1px solid  hsl(266, 59%, 60%);
     border-radius: 5px;
 }
 
@@ -216,14 +216,17 @@ textarea {
 .submit {
   /* This extra margin represent roughly the same space as the space
      between the labels and their text fields */
+    font-family: "Source Code Pro", monospace;
     border-radius: 5px;
     width: 300px;
     padding: 5px;
     background-color: pink;
+    border-color: #ff9999;
 }
 
 .submit:hover {
     background-color: #ff9999;
+    border-color: #FA8072;
     cursor: pointer;
 }
 
@@ -271,5 +274,6 @@ textarea {
     border-radius: 15px;
     animation: slideIn 1s;
     animation-fill-mode: forwards;
-    border: 1px solid #000;
+    border: 1px solid  hsl(266, 59%, 60%);
+
 }    
