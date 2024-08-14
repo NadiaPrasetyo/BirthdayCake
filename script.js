@@ -44,11 +44,10 @@ function process () {
                 </div>
 */
 
-function addCandle(eventData){
+var id = null;
 
-    console.log('event happened!');
-    console.log("X "+eventData.x);
-    console.log("Y "+eventData.y);
+function addCandle(eventData){
+    
     // find the relative position of the click relative to the cake
     let cakeRect = cake.getBoundingClientRect();
     let x = eventData.x - cakeRect.left;
@@ -67,16 +66,50 @@ function addCandle(eventData){
     candle.appendChild(candleTop);
     candle.appendChild(candleBottom);
 
+    
+
     // add the candle to the cake at the position of the click
     candle.style.position = "absolute";
     // adjust the position of the candle by x
-    candle.style.left = x + "px";
-    // adjust the position of the candle by y and 40 px for the height of the candle
-    candle.style.top = y -40 + "px";
+    candle.style.left = x -2.5 + "px";
 
-    cake.appendChild(candle);
+    //make sure that the candle is placed on the top layer ONLY
+    if (x < 10 || x > 290){
+        if (y>25){
+            y = 25;
+        }
+    }
+
+    if (x < 25 || x > 275){
+        if (y>28){
+            y = 28;
+        }
+    }
+
+    if (x < 75 || x > 225){
+        if (y>35){
+            y = 35;
+        }
+    }
+
+    // check if the candle is too low on the cake
+    if (y > 40){
+        y = 40;
+    }
+
+  var yPos = -cakeRect.top;
+  clearInterval(id);
+  id = setInterval(frame, 0.5);
+  function frame() {
+    if (yPos >= y) {
+      clearInterval(id);
+    } else {
+      yPos++;
+      candle.style.top = yPos -40 + 'px';
+    }
+  }
+  cake.appendChild(candle);
 }
-
 
 /**
  * Function to validate the name input
