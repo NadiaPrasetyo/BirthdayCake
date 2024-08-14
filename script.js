@@ -178,16 +178,16 @@ function flavorCake(flavour) {
         layer2.style.backgroundColor = "hsl(30, 100%, 10%)";
         layer3.style.backgroundColor = "hsl(30, 100%, 5%)";
     } else if (flavour == "Funfetti") {
-        top.style.backgroundImage = "url(\"./cakes/funfetti-birthday-cake.jpg\")";
+        top.style.backgroundImage = "url(\"./cakes/Warped-Funfetti.jpg\")";
         top.style.backgroundSize = "cover";
-        layer3.style.backgroundImage = "url(\"./cakes/funfetti-birthday-cake.jpg\")";
+        layer1.style.backgroundPosition = "center center";
+        layer3.style.backgroundImage = "url(\"./cakes/Warped-Funfetti.jpg\")";
         layer3.style.backgroundSize = "cover";
         layer3.style.height = "225px";
         layer3.style.top = "25px";
         layer3.style.borderRadius = "0 0 50% 50% / 25%";
         layer1.style.visibility = "hidden";
         layer2.style.visibility = "hidden";
-        
     } else if (flavour == "Strawberry") {
         top.style.backgroundColor = "#ffb7b7";
         layer1.style.backgroundColor = "#ff8f8f";
@@ -199,9 +199,17 @@ function flavorCake(flavour) {
         layer2.style.backgroundColor = "#F8D6C5";
         layer3.style.backgroundColor = "#780000";
     } else if (flavour == "Rum & Raisin") {
-        top.style.backgroundColor = "#fadbab";
-        layer1.style.backgroundColor = "#f2cc8f";
-        layer2.style.backgroundColor = "#f2cc8f";
-        layer3.style.backgroundColor = "#f2cc8f";
+        top.style.backgroundImage = "url(\"./cakes/Rum&Raisin.jpg\")";
+        top.style.backgroundSize = "cover";
+        layer1.style.backgroundPosition = "center center";
+        layer3.style.backgroundImage = "url(\"./cakes/Warped-Rum&Raisin.jpg\")";
+        layer3.style.backgroundSize = "cover";
+        layer3.style.height = "225px";
+        layer3.style.top = "25px";
+        layer3.style.borderRadius = "0 0 50% 50% / 25%";
+        layer1.style.visibility = "hidden";
+        layer2.style.visibility = "hidden";
+    } else if (flavour == "Vanilla") {
+        
     }
 }
