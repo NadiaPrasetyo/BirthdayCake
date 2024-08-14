@@ -21,13 +21,16 @@ function process () {
         invalidAnim();
     }
 
+    
     // make the form not restart the page
     event.preventDefault();
-
+    
     
     let cake = document.getElementById("cake");
     cake.addEventListener("click", addCandle);
     
+    // Flavor the cake
+    flavorCake(flavourText);
 }
 
 /* Template for candle
@@ -156,4 +159,57 @@ function invalidAnim() {
     setTimeout(function() {
         card.style.animation = "none";
     }, 1000);
+}
+
+
+/**
+ * Function to flavor the cake
+ * @param {String} flavour
+ */
+function flavorCake(flavour) {
+    let top = document.getElementById("topLayer");
+    let layer1 = document.getElementById("layer1");
+    let layer2 = document.getElementById("layer2");
+    let layer3 = document.getElementsByClassName("bottomLayer")[0];
+
+    if (flavour == "Chocolate") {
+        top.style.backgroundColor = "hsl(30, 100%, 20%)";
+        layer1.style.backgroundColor = "hsl(30, 100%, 15%)";
+        layer2.style.backgroundColor = "hsl(30, 100%, 10%)";
+        layer3.style.backgroundColor = "hsl(30, 100%, 5%)";
+    } else if (flavour == "Funfetti") {
+        top.style.backgroundImage = "url(\"./cakes/Warped-Funfetti.jpg\")";
+        top.style.backgroundSize = "cover";
+        layer1.style.backgroundPosition = "center center";
+        layer3.style.backgroundImage = "url(\"./cakes/Warped-Funfetti.jpg\")";
+        layer3.style.backgroundSize = "cover";
+        layer3.style.height = "225px";
+        layer3.style.top = "25px";
+        layer3.style.borderRadius = "0 0 50% 50% / 25%";
+        layer1.style.visibility = "hidden";
+        layer2.style.visibility = "hidden";
+    } else if (flavour == "Strawberry") {
+        top.style.backgroundColor = "#ffb7b7";
+        layer1.style.backgroundColor = "#ff8f8f";
+        layer2.style.backgroundColor = "#fd5f5f";
+        layer3.style.backgroundColor = "#e53939";
+    } else if (flavour == "Red Velvet") {
+        top.style.backgroundColor = "#c1121f";
+        layer1.style.backgroundColor = "#780000";
+        layer2.style.backgroundColor = "#F8D6C5";
+        layer3.style.backgroundColor = "#780000";
+    } else if (flavour == "Rum & Raisin") {
+        top.style.backgroundImage = "url(\"./cakes/Rum&Raisin.jpg\")";
+        top.style.backgroundSize = "cover";
+        layer1.style.backgroundPosition = "center center";
+        layer3.style.backgroundImage = "url(\"./cakes/Warped-Rum&Raisin.jpg\")";
+        layer3.style.backgroundSize = "cover";
+        layer3.style.height = "225px";
+        layer3.style.top = "25px";
+        layer3.style.borderRadius = "0 0 50% 50% / 25%";
+        layer1.style.visibility = "hidden";
+        layer2.style.visibility = "hidden";
+    } else if (flavour == "Vanilla") {
+        
+    }
 }
