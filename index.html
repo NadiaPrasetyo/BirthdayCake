@@ -5,7 +5,27 @@
         <link rel="stylesheet" type="text/css" href="style.css">
     </head>
     <body>
-        
+        <div id="Card">
+            <h1 class="title"> Birthday Card</h1>
+            <form>
+                <label for="name">Name:</label><br>
+                <input type="text" id="name" name="name"><br>
+                <label for="birthday">Date of Birth:</label><br>
+                <input type="date" id="birthday" name="birthday"><br>
+                <label for="flavour">Cake flavour:</label><br>
+                <select id="flavour">
+                    <option value="Chocolate">Chocolate</option>
+                    <option value="Vanilla">Vanilla</option>
+                    <option value="Strawberry">Strawberry</option>
+                    <option value="Red Velvet">Red Velvet</option>
+                    <option value="Rum & Raisin">Rum & Raisin</option>
+                    <option value="Funfetti">Funfetti</option>
+                    </select><br>
+                <label for="message">Message:</label><br>
+                <textarea id="message" name="message" rows="4" cols="50"></textarea><br>
+                <input type="submit" value="Submit">
+              </form>
+        </div>
     </body>
     <footer>
     </footer>
