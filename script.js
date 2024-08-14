@@ -178,10 +178,10 @@ function flavorCake(flavour) {
         layer2.style.backgroundColor = "hsl(30, 100%, 10%)";
         layer3.style.backgroundColor = "hsl(30, 100%, 5%)";
     } else if (flavour == "Funfetti") {
-        top.style.backgroundImage = "url(\"./cakes/Warped-Funfetti.jpg\")";
+        top.style.backgroundImage = "url(\"./cakes/Funfetti-top.jpg\")";
         top.style.backgroundSize = "cover";
         layer1.style.backgroundPosition = "center center";
-        layer3.style.backgroundImage = "url(\"./cakes/Warped-Funfetti.jpg\")";
+        layer3.style.backgroundImage = "url(\"./cakes/Funfetti-bottom.jpg\")";
         layer3.style.backgroundSize = "cover";
         layer3.style.height = "225px";
         layer3.style.top = "25px";
@@ -202,7 +202,7 @@ function flavorCake(flavour) {
         top.style.backgroundImage = "url(\"./cakes/Rum&Raisin.jpg\")";
         top.style.backgroundSize = "cover";
         layer1.style.backgroundPosition = "center center";
-        layer3.style.backgroundImage = "url(\"./cakes/Warped-Rum&Raisin.jpg\")";
+        layer3.style.backgroundImage = "url(\"./cakes/Rum&Raisin-bottom.jpg\")";
         layer3.style.backgroundSize = "cover";
         layer3.style.height = "225px";
         layer3.style.top = "25px";
