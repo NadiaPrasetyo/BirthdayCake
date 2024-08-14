@@ -1,0 +1,29 @@
+/* Style file for Birtday Cake */
+
+body {
+    background-color: #efc7e6;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+}
+
+.topContainer{
+    background-color: #f7d9f4;
+    padding: 10px;
+    text-align: center;
+}
+
+.middleContainer{
+    background-color: #fa44e8;
+    height: 400px;
+    padding: 10px;
+    text-align: center;
+}
+
+.bottomContainer{
+    background-color: #b013a0;
+    padding: 10px;
+    text-align: center;
+}
+
