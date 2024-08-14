@@ -36,12 +36,14 @@ body {
 
 .candle{
     position: relative;
-    background-color: #f7d9f4;
+    top: 60px;
+    /* background-color: #f7d9f4; */
     height: 50px;
     width: 10px;
     margin-left: auto;
     margin-right: auto;
     margin-top: 10px;
+    z-index: 5;
 }
 
 .candleTop{
@@ -54,6 +56,22 @@ body {
     margin-left: auto;
     margin-right: auto;
     z-index: 2;
+}
+
+.flame{
+    position: absolute;
+    top: 0px;
+    left: 2px;
+    border-left: 3px solid transparent;
+    border-right: 3px solid transparent; 
+    border-bottom: 12px solid red;
+    border-bottom-left-radius: 50%;
+    border-bottom-right-radius: 50%;
+    height: px;
+    width: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    z-index: 3;
 }
 
 .candleBottom{
