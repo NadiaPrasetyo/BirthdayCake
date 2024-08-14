@@ -96,12 +96,12 @@ function addCandle(eventData){
 
   var yPos = -cakeRect.top;
   clearInterval(id);
-  id = setInterval(frame, 0.5);
+  id = setInterval(frame, 1);
   function frame() {
     if (yPos >= y) {
       clearInterval(id);
     } else {
-      yPos++;
+      yPos+=3;
       candle.style.top = yPos -40 + 'px';
     }
   }
