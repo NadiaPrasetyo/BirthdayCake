@@ -86,7 +86,7 @@ function validname(nameText) {
         document.getElementById("name").style.border = "1px solid red";
         return false;
     }
-    document.getElementById("name").style.border = "1px solid black";
+    document.getElementById("name").style.border = "1px solid hsl(266, 59%, 60%)";
     return true;
 }
 
@@ -107,7 +107,7 @@ function validbirthday(dobText) {
         document.getElementById("dob").style.border = "1px solid red";
         return false;
     }
-    document.getElementById("dob").style.border = "1px solid black";
+    document.getElementById("dob").style.border = "1px solid hsl(266, 59%, 60%)";
     return true;
 }
 
