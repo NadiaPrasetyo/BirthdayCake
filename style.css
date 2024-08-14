@@ -145,8 +145,6 @@ form {
     display: inline-block;
     /* Form outline */
     padding: 1em;
-    border: 1px solid #ccc;
-    border-radius: 1em;
 }
 
 .title__card {
@@ -217,8 +215,9 @@ button {
     z-index: 100;
     position: absolute;
     top: 100px;
+    width: 335px;
     /* make position horizontally in the center */
-    left: 40%;
+    left: calc(50% - 335px/2);
     background-color: aquamarine;
     visibility: visible;
     border-radius: 15px;
