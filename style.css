@@ -163,6 +163,8 @@ form {
     font-size: 1.5em;
     font-weight: 600;
     color: #000;
+    /* make an underline border */
+    border-bottom: 2px dashed #000;
 }
 
 ul {
@@ -194,7 +196,8 @@ textarea, select {
     width: 300px;
     box-sizing: border-box;
     /* Match form field borders */
-    border: 1px solid #999;
+    border: 1px solid #000;
+    border-radius: 5px;
 }
 
 input:focus,
@@ -211,15 +214,18 @@ textarea {
     height: 5em;
 }
 
-.button {
-  /* Align buttons with the text fields */
-    padding-left: 90px; /* same size as the label elements */
-}
-
-button {
+.submit {
   /* This extra margin represent roughly the same space as the space
      between the labels and their text fields */
-    margin-left: 0.5em;
+    border-radius: 5px;
+    width: 300px;
+    padding: 5px;
+    background-color: pink;
+}
+
+.submit:hover {
+    background-color: #ff9999;
+    cursor: pointer;
 }
 
 /* Card animation */
@@ -241,6 +247,19 @@ button {
     }
 }
 
+@keyframes invalidAnim {
+    /* shake the card */
+    0%, 100% {
+        transform: translateX(0);
+    }
+    10%, 30%, 50%, 70%, 90% {
+        transform: translateX(-10px);
+    }
+    20%, 40%, 60%, 80% {
+        transform: translateX(10px);
+    }
+}
+
 #Card {
     z-index: 100;
     position: absolute;
@@ -248,9 +267,10 @@ button {
     width: 335px;
     /* make position horizontally in the center */
     left: calc(50% - 335px/2);
-    background-color: aquamarine;
+    background-color: rgb(230,215,255);
     visibility: visible;
     border-radius: 15px;
     animation: slideIn 1s;
     animation-fill-mode: forwards;
+    border: 1px solid #000;
 }    
