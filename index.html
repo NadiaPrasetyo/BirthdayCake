@@ -42,32 +42,34 @@
         <div id="Card">
             <h1 class="title"> Birthday Card</h1>
             <form name="myForm" action="" method="GET">
-                <li>
-                    <label for="name">Name:</label><br>
-                    <input type="text" id="name" name="name"><br>
-                </li>
-                <li>
-                    <label for="birthday">Date of Birth:</label><br>
-                    <input type="date" id="birthday" name="birthday"><br>
-                </li>
-                <li>
-                    <label for="flavour">Cake flavour:</label><br>
-                    <select id="flavour">
-                        <option value="Chocolate">Chocolate</option>
-                        <option value="Vanilla">Vanilla</option>
-                        <option value="Strawberry">Strawberry</option>
-                        <option value="Red Velvet">Red Velvet</option>
-                        <option value="Rum & Raisin">Rum & Raisin</option>
-                        <option value="Funfetti">Funfetti</option>
-                        </select><br>
-                </li>
-                <li>
-                    <label for="message">Message:</label><br>
-                    <textarea id="message" name="message" rows="4" cols="50"></textarea><br>
-                </li>
-                <li>
-                    <input type="submit" value="Submit" onclick="process(this.form)">
-                </li>
+                <ul>
+                    <li>
+                        <label for="name">Name:</label><br>
+                        <input type="text" id="name" name="name"><br>
+                    </li>
+                    <li>
+                        <label for="birthday">Date of Birth:</label><br>
+                        <input type="date" id="birthday" name="birthday"><br>
+                    </li>
+                    <li>
+                        <label for="flavour">Cake flavour:</label><br>
+                        <select id="flavour">
+                            <option value="Chocolate">Chocolate</option>
+                            <option value="Vanilla">Vanilla</option>
+                            <option value="Strawberry">Strawberry</option>
+                            <option value="Red Velvet">Red Velvet</option>
+                            <option value="Rum & Raisin">Rum & Raisin</option>
+                            <option value="Funfetti">Funfetti</option>
+                            </select><br>
+                    </li>
+                    <li>
+                        <label for="message">Message:</label><br>
+                        <textarea id="message" name="message" rows="4" cols="50"></textarea><br>
+                    </li>
+                    <li>
+                        <input type="submit" value="Submit" onclick="process(this.form)">
+                    </li>
+                </ul>
               </form>
         </div>
     </body>
