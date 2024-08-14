@@ -36,17 +36,15 @@ body {
 }
 
 .candle{
-    position: relative;
-    top: -45px;
     background-color: transparent;
     height: 50px;
     width: 10px;
     border-bottom-left-radius: 15%;
     border-bottom-right-radius: 15%;
-    margin-left: auto;
-    margin-right: auto;
     z-index: 5;
 }
+
+
 
 .candleTop{
     position: absolute;
