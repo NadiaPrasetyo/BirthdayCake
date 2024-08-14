@@ -8,7 +8,11 @@ function process () {
     var flavourText = e.options[e.selectedIndex].text;
     var messageText = document.getElementById("message").value;
 
-    if (validname(nameText) && validbirthday(dobText)) {
+    // test flag to overwrite validname and validbirthday
+    /** @todo change this to false */
+    var test = true;
+
+    if ((validname(nameText) && validbirthday(dobText)) || test) {
         // change animation to slide out
         let card = document.getElementById("Card");
         card.style.animation = "slideOut 2s";
@@ -40,8 +44,12 @@ function process () {
 function addCandle(eventData){
 
     console.log('event happened!');
-    console.log(eventData.x);
-    console.log(eventData.y);
+    console.log("X "+eventData.x);
+    console.log("Y "+eventData.y);
+    // find the relative position of the click relative to the cake
+    let cakeRect = cake.getBoundingClientRect();
+    let x = eventData.x - cakeRect.left;
+    let y = eventData.y - cakeRect.top;
     
     let candle = document.createElement("div");
     candle.classList.add("candle");
@@ -55,6 +63,13 @@ function addCandle(eventData){
     candle.appendChild(flame);
     candle.appendChild(candleTop);
     candle.appendChild(candleBottom);
+
+    // add the candle to the cake at the position of the click
+    candle.style.position = "absolute";
+    // adjust the position of the candle by x
+    candle.style.left = x + "px";
+    // adjust the position of the candle by y and 40 px for the height of the candle
+    candle.style.top = y -40 + "px";
 
     cake.appendChild(candle);
 }
@@ -101,7 +116,7 @@ function validbirthday(dobText) {
  */
 function invalidAnim() {
     let card = document.getElementById("Card");
-    card.style.animation = "invalidAnim 1s";
+    card.style.animation = "invalidAnim 0.5s";
     card.style.animationFillMode = "forwards";
 
     // reset the animation
