@@ -3,6 +3,8 @@
 const test = true;
 const micTest = false;
 
+let blowed = false;
+
 
 /**
  * Function to process the form
@@ -23,15 +25,22 @@ function process() {
     } else {
         invalidAnim();
     }
+    // make the form not restart the page
+    event.preventDefault();
+    var cake = document.getElementById("cake");
 
     // Calculate the age of the person
     let dob = new Date(dobText);
     let today = new Date();
     let age = today.getFullYear() - dob.getFullYear();
 
-    // make the form not restart the page
-    event.preventDefault();
-    var cake = document.getElementById("cake");
+    // Change the banner message to have the name of the person
+    let name = document.getElementById("bannerMessage");
+    // Capitalize the first letter of the name
+    nameText = nameText.charAt(0).toUpperCase() + nameText.slice(1);
+    name.innerHTML = "Happy Birthday <br>" + nameText + "!";
+
+
 
     // Flavor the cake
     flavorCake(flavourText);
@@ -123,7 +132,7 @@ async function ageCandles(age) {
 function addCandle(eventData) {
     let second_message = document.getElementById("second_message");
     second_message.style.visibility = "visible";
-    webaudio_tooling_obj();
+
 
     // find the relative position of the click relative to the cake
     let cakeRect = cake.getBoundingClientRect();
@@ -136,6 +145,7 @@ function addCandle(eventData) {
     wick.classList.add("wick");
     let flame = document.createElement("div");
     flame.classList.add("flame");
+    flame.style.visibility = "visible";
     let candleTop = document.createElement("div");
     candleTop.classList.add("candleTop");
     let candleBottom = document.createElement("div");
@@ -189,6 +199,7 @@ function addCandle(eventData) {
         }
     }
     cake.appendChild(candle);
+    webaudio_tooling_obj();
 }
 
 function turnCandleOFF() {
@@ -395,80 +406,91 @@ let media_stream = null,
     scriptProcessor = null;
 
 function webaudio_tooling_obj() {
-  audioContext = new AudioContext();
 
-  console.log("audio is starting up ...");
+    // check if audiocontext is null and or if is running
+    if (audioContext) {
+        if (audioContext.state === "running") {
+            // console.log("audio is running already");
+            return;
+        }
+    }
+    audioContext = new AudioContext();
 
-  if (!navigator.getUserMedia)
-    navigator.getUserMedia =
-      navigator.getUserMedia ||
-      navigator.webkitGetUserMedia ||
-      navigator.mozGetUserMedia ||
-      navigator.msGetUserMedia;
+    // console.log("audio is starting up ...");
 
-  if (navigator.getUserMedia) {
-    navigator.getUserMedia(
-      { audio: true },
-      start_microphone, () => {
-        console.log("error getting microphone input");
-      }
-    );
-  } else {
-    alert("getUserMedia not supported in this browser.");
-  }
+    if (!navigator.getUserMedia)
+        navigator.getUserMedia =
+        navigator.getUserMedia ||
+        navigator.webkitGetUserMedia ||
+        navigator.mozGetUserMedia ||
+        navigator.msGetUserMedia;
 
-  // ---
-
-  function showData(array, rows, label) {
-    console.log("__________ " + label);
-    array.slice(0, rows).forEach(value => {
-      if (value > 180) {
-        console.log("Loud sound detected!" + value);
-        turnCandleOFF();
-      }
-    });
-    if (checkCandlesOFF()) {
-        console.log("All candles are off!");
-        generateBalloons();
-        pushDownBanner();
-        stop_microphone();
-        let remove = document.getElementById("removeCandles");
-        remove.style.visibility = "visible";
+    if (navigator.getUserMedia) {
+        navigator.getUserMedia(
+        { audio: true },
+        start_microphone, () => {
+            console.log("error getting microphone input");
+        }
+        );
+    } else {
+        alert("getUserMedia not supported in this browser.");
     }
 
-  }
+    // ---
+
+    function showData(array, rows, label) {
+        // console.log("__________ " + label);
+        array.slice(0, rows).forEach(value => {
+        if (value > 180) {
+            // console.log("Loud sound detected!" + value);
+            turnCandleOFF();
+        }
+        });
+        if (checkCandlesOFF()) {
+            // console.log("All candles are off!");
+            if(blowed == false){
+                blowed = true;
+                generateBalloons();
+                pushDownBanner();
+            }
+            stop_microphone();
+            let remove = document.getElementById("removeCandles");
+            remove.style.visibility = "visible";
+        }
+
+    }
 
 
-  function start_microphone(stream) {
-    media_stream = stream;
-    const gainNode = audioContext.createGain();
-    gainNode.connect(audioContext.destination);
+    function start_microphone(stream) {
+        media_stream = stream;
+        const gainNode = audioContext.createGain();
+        gainNode.connect(audioContext.destination);
 
-    micStream = audioContext.createMediaStreamSource(stream);
-    analyserNode = audioContext.createAnalyser();
-    scriptProcessor = audioContext.createScriptProcessor(2048, 1, 1);
+        micStream = audioContext.createMediaStreamSource(stream);
+        analyserNode = audioContext.createAnalyser();
+        scriptProcessor = audioContext.createScriptProcessor(2048, 1, 1);
 
-    analyserNode.smoothingTimeConstant = 0;
-    analyserNode.fftSize = 2048;
+        analyserNode.smoothingTimeConstant = 0;
+        analyserNode.fftSize = 2048;
 
-    micStream.connect(analyserNode);
-    analyserNode.connect(scriptProcessor);
-    scriptProcessor.connect(gainNode);
+        micStream.connect(analyserNode);
+        analyserNode.connect(scriptProcessor);
+        scriptProcessor.connect(gainNode);
 
-    scriptProcessor.onaudioprocess = function () {
-      // get the average for the first channel
-      const array = new Uint8Array(analyserNode.frequencyBinCount);
-      analyserNode.getByteFrequencyData(array);
-      showData(array, 100, "from fft");
+        scriptProcessor.onaudioprocess = function () {
+        // get the average for the first channel
+        const array = new Uint8Array(analyserNode.frequencyBinCount);
+        analyserNode.getByteFrequencyData(array);
+        showData(array, 100, "from fft");
 
-    };
-  }
+        };
+    }
 }
 
 function stop_microphone() {
     if (media_stream) {
         media_stream.getTracks().forEach(track => track.stop());
-        console.log("Microphone stopped.");
+        // console.log("Microphone stopped.");
     }
 
     if (scriptProcessor) {
@@ -486,7 +508,7 @@ function stop_microphone() {
 
     if (audioContext) {
         audioContext.close().then(() => {
-            console.log("Audio context closed.");
+            // console.log("Audio context closed.");
         });
     }
 }
