@@ -1,6 +1,7 @@
 // test flag to overwrite validname and validbirthday
 /** @todo change this to false */
 const test = true;
+const micTest = false;
 
 
 /**
@@ -23,51 +24,61 @@ function process() {
         invalidAnim();
     }
 
+    // Calculate the age of the person
+    let dob = new Date(dobText);
+    let today = new Date();
+    let age = today.getFullYear() - dob.getFullYear();
 
     // make the form not restart the page
     event.preventDefault();
     var cake = document.getElementById("cake");
-    cake.addEventListener("click", addCandle);
 
     // Flavor the cake
     flavorCake(flavourText);
     // add candles to the cake
-    ageCandles();
+    ageCandles(age);
+
+    // wait for the candles to be added before starting the audio
+    if (micTest == false) {
+        setTimeout(function () {
+            webaudio_tooling_obj();
+        }, 200*age);
+    }
 }
 
 /**
  * Function to add the candles with the amount of age the person is turning
 */
-async function ageCandles() {
-    // calculate the age
-    let dobText = document.getElementById("dob").value;
-    let dob = new Date(dobText);
-    let today = new Date();
-    let age = today.getFullYear() - dob.getFullYear();
+async function ageCandles(age) {
 
     // calculate the spread of the candles depending on the age
-    let spread = 300 / age;
+    let spread = 300 / (age + 1);
 
     let cakeRect = cake.getBoundingClientRect();
 
     for (let i = 0; i < age; i++) {
         let candle = document.createElement("div");
         candle.classList.add("candle");
+        let wick = document.createElement("div");
+        wick.classList.add("wick");
         let flame = document.createElement("div");
         flame.classList.add("flame");
+        flame.style.visibility = "visible";
         let candleTop = document.createElement("div");
         candleTop.classList.add("candleTop");
         let candleBottom = document.createElement("div");
         candleBottom.classList.add("candleBottom");
 
+        candle.appendChild(wick);
         candle.appendChild(flame);
         candle.appendChild(candleTop);
         candle.appendChild(candleBottom);
 
         // add the candle to the cake at the position of the click
         candle.style.position = "absolute";
-        // adjust the position of the candle by x
-        candle.style.left = (spread * i) + "px";
+        // adjust the position of the candle by x and add a random margin to make the candles look more natural
+        let margin = Math.floor(Math.random() * 10) - 5;
+        candle.style.left = spread + (spread * i) + margin + "px";
         // make the top position of the candle random between the top and bottom of the cake
         // separate the cke to 3 horizontal layers, with the first and last layer random from 0 to 25, the middle layer from 0 to 45
         let y = Math.floor(Math.random() * 40) - 40;
@@ -310,9 +321,9 @@ function flavorCake(flavour) {
 }
 
 
-/**
- * Baloons functions
- */
+/* Baloons functions ---------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------*/
 
 function randomizeBalloonSpeed(balloon) {
     // Random speed between 5s and 10s
@@ -342,7 +353,7 @@ function generateBalloons() {
     const container = document.getElementById('balloonContainer');
 
     // Random number of balloons
-    const balloonCount = Math.floor(Math.random() * 5) + 5;
+    const balloonCount = Math.floor(Math.random() * 5) + 15;
 
     for (let i = 0; i < balloonCount; i++) {
         const balloon = createBalloon();
@@ -356,4 +367,131 @@ if (test == false) {
     window.addEventListener("click", () => {
         generateBalloons();
     });
+}
+
+
+
+/* MIC Functions -------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------*/
+
+let media_stream = null,
+    audioContext = null,
+    micStream = null,
+    analyserNode = null,
+    scriptProcessor = null;
+
+function webaudio_tooling_obj() {
+  audioContext = new AudioContext();
+
+  console.log("audio is starting up ...");
+
+  if (!navigator.getUserMedia)
+    navigator.getUserMedia =
+      navigator.getUserMedia ||
+      navigator.webkitGetUserMedia ||
+      navigator.mozGetUserMedia ||
+      navigator.msGetUserMedia;
+
+  if (navigator.getUserMedia) {
+    navigator.getUserMedia(
+      { audio: true },
+      start_microphone, () => {
+        console.log("error getting microphone input");
+      }
+    );
+  } else {
+    alert("getUserMedia not supported in this browser.");
+  }
+
+  // ---
+
+  function showData(array, rows, label) {
+    console.log("__________ " + label);
+    array.slice(0, rows).forEach(value => {
+      if (value > 180) {
+        console.log("Loud sound detected!" + value);
+        turnCandleOFF();
+      }
+    });
+    if (checkCandlesOFF()) {
+        console.log("All candles are off!");
+        generateBalloons();
+        pushDownBanner();
+        stop_microphone();
+        let remove = document.getElementById("removeCandles");
+        remove.style.visibility = "visible";
+    }
+
+  }
+
+
+  function start_microphone(stream) {
+    media_stream = stream;
+    const gainNode = audioContext.createGain();
+    gainNode.connect(audioContext.destination);
+
+    micStream = audioContext.createMediaStreamSource(stream);
+    analyserNode = audioContext.createAnalyser();
+    scriptProcessor = audioContext.createScriptProcessor(2048, 1, 1);
+
+    analyserNode.smoothingTimeConstant = 0;
+    analyserNode.fftSize = 2048;
+
+    micStream.connect(analyserNode);
+    analyserNode.connect(scriptProcessor);
+    scriptProcessor.connect(gainNode);
+
+    scriptProcessor.onaudioprocess = function () {
+      // get the average for the first channel
+      const array = new Uint8Array(analyserNode.frequencyBinCount);
+      analyserNode.getByteFrequencyData(array);
+      showData(array, 100, "from fft");
+
+    };
+  }
+}
+
+function stop_microphone() {
+    if (media_stream) {
+        media_stream.getTracks().forEach(track => track.stop());
+        console.log("Microphone stopped.");
+    }
+
+    if (scriptProcessor) {
+        scriptProcessor.disconnect();
+        scriptProcessor.onaudioprocess = null; // remove the event handler
+    }
+
+    if (analyserNode) {
+        analyserNode.disconnect();
+    }
+
+    if (micStream) {
+        micStream.disconnect();
+    }
+
+    if (audioContext) {
+        audioContext.close().then(() => {
+            console.log("Audio context closed.");
+        });
+    }
+}
+
+
+/**
+ * Function for the remove candles button
+ */
+function removeCandles() {
+    let candles = document.getElementsByClassName("candle");
+    while (candles.length > 0) {
+        candles[0].remove();
+    }
+    let remove = document.getElementById("removeCandles");
+    remove.style.visibility = "hidden";
+    let first_message = document.getElementById("first_message");
+    let instructions = document.getElementById("instruct");
+    instructions.style.display = "block";
+    first_message.style.visibility = "visible";
+    cake.addEventListener("click", addCandle);
 }

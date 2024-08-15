@@ -161,6 +161,37 @@ body {
     text-align: center;
 }
 
+#removeCandles{
+    font-family: "Source Code Pro", monospace;
+    font-size: 1.5em;
+    background-color: #ff9999;
+    border-radius: 5px;
+    padding: 1rem;
+    border-color: #ff9999;
+    visibility: hidden;
+    z-index: 1;
+}
+
+#instruct {
+    position: absolute;
+    /* center the position */
+    width: 335px;
+    bottom: 15%;
+    left: calc(50% - 335px/2);
+    font-family: "Source Code Pro", monospace;
+    font-size: 1.5em;
+    font-weight: 600;
+    color: #000;
+    display: none;
+}
+
+#first_message {
+    visibility: hidden;
+}
+
+#second_message {
+    visibility: hidden;
+}
 
 /* Form */
 
