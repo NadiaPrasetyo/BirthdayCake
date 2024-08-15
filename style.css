@@ -58,8 +58,19 @@ body {
     z-index: 2;
 }
 
+.wick{
+    position: absolute;
+    top: 6px;
+    left: 4px;
+    background-color: #fffbee;
+    height: 5px;
+    width: 1px;
+    z-index: 3;
+}
+
 .flame{
     position: absolute;
+    visibility: visible;
     top: 0px;
     left: 2px;
     border-left: 3px solid transparent;
@@ -69,7 +80,7 @@ body {
     border-bottom-right-radius: 50%;
     height: 0px;
     width: 0px;
-    z-index: 3;
+    z-index: 4;
     filter: drop-shadow(0px 0px 5px rgba(255, 111, 0, 1));
 }
 

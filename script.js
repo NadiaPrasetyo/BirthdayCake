@@ -57,6 +57,8 @@ function addCandle(eventData){
     
     let candle = document.createElement("div");
     candle.classList.add("candle");
+    let wick = document.createElement("div");
+    wick.classList.add("wick");
     let flame = document.createElement("div");
     flame.classList.add("flame");
     let candleTop = document.createElement("div");
@@ -64,6 +66,7 @@ function addCandle(eventData){
     let candleBottom = document.createElement("div");
     candleBottom.classList.add("candleBottom");
 
+    candle.appendChild(wick);
     candle.appendChild(flame);
     candle.appendChild(candleTop);
     candle.appendChild(candleBottom);
@@ -110,7 +113,16 @@ function addCandle(eventData){
       candle.style.top = yPos -40 + 'px';
     }
   }
-  cake.appendChild(candle);
+    cake.appendChild(candle);
+    candle.addEventListener("click", turnCandleOFF);
+}
+
+function turnCandleOFF(){
+    //randomise which candle is turned off
+    let candles = document.getElementsByClassName("candle");
+    let candle = candles[Math.floor(Math.random() * candles.length)];
+    let flame = candle.getElementsByClassName("flame")[0];
+    flame.style.visibility = "hidden";
 }
 
 /**
