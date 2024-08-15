@@ -6,14 +6,14 @@ const test = true;
 /**
  * Function to process the form
 */
-function process () {
+function process() {
     var nameText = document.getElementById("name").value;
     var dobText = document.getElementById("dob").value;
     var e = document.getElementById("flavour");
     var flavourText = e.options[e.selectedIndex].text;
     var messageText = document.getElementById("message").value;
-    
-    
+
+
     if ((validname(nameText) && validbirthday(dobText)) || test) {
         // change animation to slide out
         let card = document.getElementById("Card");
@@ -23,24 +23,21 @@ function process () {
         invalidAnim();
     }
 
-    
+
     // make the form not restart the page
     event.preventDefault();
-    
-    
     var cake = document.getElementById("cake");
     cake.addEventListener("click", addCandle);
-    
+
     // Flavor the cake
     flavorCake(flavourText);
+    // add candles to the cake
     ageCandles();
 }
 
 /**
  * Function to add the candles with the amount of age the person is turning
 */
-
-
 async function ageCandles() {
     // calculate the age
     let dobText = document.getElementById("dob").value;
@@ -52,7 +49,6 @@ async function ageCandles() {
     let spread = 300 / age;
 
     let cakeRect = cake.getBoundingClientRect();
-
 
     for (let i = 0; i < age; i++) {
         let candle = document.createElement("div");
@@ -74,10 +70,10 @@ async function ageCandles() {
         candle.style.left = (spread * i) + "px";
         // make the top position of the candle random between the top and bottom of the cake
         // separate the cke to 3 horizontal layers, with the first and last layer random from 0 to 25, the middle layer from 0 to 45
-        let y = Math.floor(Math.random() *40) - 40;
-        if (spread * i < 50 || spread * i > 250){
+        let y = Math.floor(Math.random() * 40) - 40;
+        if (spread * i < 50 || spread * i > 250) {
             // random between -15 and -25
-            y = Math.floor(Math.random() *10) - 25;
+            y = Math.floor(Math.random() * 10) - 25;
         }
 
         let yPos = -cakeRect.top;
@@ -87,18 +83,16 @@ async function ageCandles() {
             if (yPos >= y) {
                 clearInterval(id);
             } else {
-                yPos+=3;
+                yPos += 3;
                 candle.style.top = yPos + 'px';
             }
         }
-        
+
         cake.appendChild(candle);
-        
+
         // delay the loop to make the candles appear one by one
         await new Promise(r => setTimeout(r, 200));
     }
-
-
 }
 
 
@@ -115,13 +109,13 @@ async function ageCandles() {
                 </div>
 */
 
-function addCandle(eventData){
-    
+function addCandle(eventData) {
+
     // find the relative position of the click relative to the cake
     let cakeRect = cake.getBoundingClientRect();
     let x = eventData.x - cakeRect.left;
     let y = eventData.y - cakeRect.top;
-    
+
     let candle = document.createElement("div");
     candle.classList.add("candle");
     let wick = document.createElement("div");
@@ -138,53 +132,53 @@ function addCandle(eventData){
     candle.appendChild(candleTop);
     candle.appendChild(candleBottom);
 
-    
+
 
     // add the candle to the cake at the position of the click
     candle.style.position = "absolute";
     // adjust the position of the candle by x
-    candle.style.left = x -2.5 + "px";
+    candle.style.left = x - 2.5 + "px";
 
     //make sure that the candle is placed on the top layer ONLY
-    if (x < 10 || x > 290){
-        if (y>25){
+    if (x < 10 || x > 290) {
+        if (y > 25) {
             y = 25;
         }
     }
 
-    if (x < 25 || x > 275){
-        if (y>28){
+    if (x < 25 || x > 275) {
+        if (y > 28) {
             y = 28;
         }
     }
 
-    if (x < 75 || x > 225){
-        if (y>35){
+    if (x < 75 || x > 225) {
+        if (y > 35) {
             y = 35;
         }
     }
 
     // check if the candle is too low on the cake
-    if (y > 40){
+    if (y > 40) {
         y = 40;
     }
 
-  var yPos = -cakeRect.top;
+    var yPos = -cakeRect.top;
 
-  let id = setInterval(frame, 1);
-  function frame() {
-    if (yPos >= y) {
-      clearInterval(id);
-    } else {
-      yPos+=3;
-      candle.style.top = yPos -40 + 'px';
+    let id = setInterval(frame, 1);
+    function frame() {
+        if (yPos >= y) {
+            clearInterval(id);
+        } else {
+            yPos += 3;
+            candle.style.top = yPos - 40 + 'px';
+        }
     }
-  }
     cake.appendChild(candle);
     candle.addEventListener("click", turnCandleOFF);
 }
 
-function turnCandleOFF(){
+function turnCandleOFF() {
     //randomise which candle is turned off
     let candles = document.getElementsByClassName("candle");
     let candle = candles[Math.floor(Math.random() * candles.length)];
@@ -193,12 +187,12 @@ function turnCandleOFF(){
 }
 
 // check if all candles are turned off
-function checkCandlesOFF(){
+function checkCandlesOFF() {
     let candles = document.getElementsByClassName("candle");
-    for (let i = 0; i < candles.length; i++){
+    for (let i = 0; i < candles.length; i++) {
         let candle = candles[i];
         let flame = candle.getElementsByClassName("flame")[0];
-        if (flame.style.visibility == "visible"){
+        if (flame.style.visibility == "visible") {
             return false;
         }
     }
@@ -207,7 +201,7 @@ function checkCandlesOFF(){
 
 /*
 */
-function pushDownBanner(){
+function pushDownBanner() {
 
 }
 
@@ -256,7 +250,7 @@ function invalidAnim() {
     card.style.animationFillMode = "forwards";
 
     // reset the animation
-    setTimeout(function() {
+    setTimeout(function () {
         card.style.animation = "none";
     }, 1000);
 }
@@ -311,7 +305,7 @@ function flavorCake(flavour) {
         layer1.style.visibility = "hidden";
         layer2.style.visibility = "hidden";
     } else if (flavour == "Vanilla") {
-        
+
     }
 }
 
@@ -322,7 +316,7 @@ function flavorCake(flavour) {
 
 function randomizeBalloonSpeed(balloon) {
     // Random speed between 5s and 10s
-    const speed = Math.random() * 5 + 15; 
+    const speed = Math.random() * 5 + 15;
     balloon.style.animationDuration = speed + "s";
 }
 
@@ -346,9 +340,9 @@ function createBalloon() {
 
 function generateBalloons() {
     const container = document.getElementById('balloonContainer');
-    
+
     // Random number of balloons
-    const balloonCount = Math.floor(Math.random() * 5) + 5; 
+    const balloonCount = Math.floor(Math.random() * 5) + 5;
 
     for (let i = 0; i < balloonCount; i++) {
         const balloon = createBalloon();
@@ -358,8 +352,8 @@ function generateBalloons() {
 
 
 /* change to when candles are blown up */
-if( test == false){
+if (test == false) {
     window.addEventListener("click", () => {
-    generateBalloons();
+        generateBalloons();
     });
 }
