@@ -1,16 +1,18 @@
+// test flag to overwrite validname and validbirthday
+/** @todo change this to false */
+const test = true;
+
+
 /**
  * Function to process the form
 */
 function process () {
-    let nameText = document.getElementById("name").value;
-    let dobText = document.getElementById("dob").value;
-    let e = document.getElementById("flavour");
-    let flavourText = e.options[e.selectedIndex].text;
-    let messageText = document.getElementById("message").value;
+    var nameText = document.getElementById("name").value;
+    var dobText = document.getElementById("dob").value;
+    var e = document.getElementById("flavour");
+    var flavourText = e.options[e.selectedIndex].text;
+    var messageText = document.getElementById("message").value;
     
-    // test flag to overwrite validname and validbirthday
-    /** @todo change this to false */
-    const test = true;
     
     if ((validname(nameText) && validbirthday(dobText)) || test) {
         // change animation to slide out
@@ -26,7 +28,7 @@ function process () {
     event.preventDefault();
     
     
-    let cake = document.getElementById("cake");
+    var cake = document.getElementById("cake");
     cake.addEventListener("click", addCandle);
     
     // Flavor the cake
@@ -113,8 +115,6 @@ async function ageCandles() {
                 </div>
 */
 
-var id = null;
-
 function addCandle(eventData){
     
     // find the relative position of the click relative to the cake
@@ -170,8 +170,8 @@ function addCandle(eventData){
     }
 
   var yPos = -cakeRect.top;
-  clearInterval(id);
-  id = setInterval(frame, 1);
+
+  let id = setInterval(frame, 1);
   function frame() {
     if (yPos >= y) {
       clearInterval(id);
@@ -358,6 +358,8 @@ function generateBalloons() {
 
 
 /* change to when candles are blown up */
-window.addEventListener("click", () => {
-  generateBalloons();
-});
+if( test == false){
+    window.addEventListener("click", () => {
+    generateBalloons();
+    });
+}
