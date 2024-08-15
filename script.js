@@ -213,3 +213,50 @@ function flavorCake(flavour) {
         
     }
 }
+
+
+/**
+ * Baloons functions
+ */
+
+function randomizeBalloonSpeed(balloon) {
+    // Random speed between 5s and 10s
+    const speed = Math.random() * 5 + 15; 
+    balloon.style.animationDuration = speed + "s";
+}
+
+function createBalloon() {
+    const balloon = document.createElement('div');
+    balloon.classList.add('balloon');
+
+    // Randomize color
+    const colors = ['#FF6347', '#FFD700', '#ADFF2F', '#00BFFF', '#FF69B4', '#8A2BE2', '#FF4500'];
+    balloon.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+
+    // Randomize position
+    const containerWidth = document.querySelector('.container').clientWidth;
+    const randomLeft = Math.random() * containerWidth;
+    balloon.style.left = randomLeft + "px";
+
+    randomizeBalloonSpeed(balloon);
+
+    return balloon;
+}
+
+function generateBalloons() {
+    const container = document.getElementById('balloonContainer');
+    
+    // Random number of balloons
+    const balloonCount = Math.floor(Math.random() * 5) + 5; 
+
+    for (let i = 0; i < balloonCount; i++) {
+        const balloon = createBalloon();
+        container.appendChild(balloon);
+    }
+}
+
+
+/* change to when candles are blown up */
+window.addEventListener("click", () => {
+  generateBalloons();
+});
