@@ -156,7 +156,7 @@ body {
 }
 
 .bottomContainer{
-    background-color: #E6E6FA;
+    /* background-color: #0000ff; */
     padding: 10px;
     text-align: center;
 }
@@ -173,11 +173,12 @@ body {
 }
 
 #instruct {
-    position: absolute;
+    /* background-color: aqua; */
+    position: relative;
     /* center the position */
     width: 335px;
-    bottom: 15%;
-    left: calc(50% - 335px/2);
+    margin-left: auto;
+    margin-right: auto;
     font-family: "Source Code Pro", monospace;
     font-size: 1.5em;
     font-weight: 600;
