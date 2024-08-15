@@ -1,17 +1,17 @@
 /**
  * Function to process the form
- */
+*/
 function process () {
-    var nameText = document.getElementById("name").value;
-    var dobText = document.getElementById("dob").value;
-    var e = document.getElementById("flavour");
-    var flavourText = e.options[e.selectedIndex].text;
-    var messageText = document.getElementById("message").value;
-
+    let nameText = document.getElementById("name").value;
+    let dobText = document.getElementById("dob").value;
+    let e = document.getElementById("flavour");
+    let flavourText = e.options[e.selectedIndex].text;
+    let messageText = document.getElementById("message").value;
+    
     // test flag to overwrite validname and validbirthday
     /** @todo change this to false */
-    var test = true;
-
+    const test = true;
+    
     if ((validname(nameText) && validbirthday(dobText)) || test) {
         // change animation to slide out
         let card = document.getElementById("Card");
@@ -31,7 +31,74 @@ function process () {
     
     // Flavor the cake
     flavorCake(flavourText);
+    ageCandles();
 }
+
+/**
+ * Function to add the candles with the amount of age the person is turning
+*/
+
+
+async function ageCandles() {
+    // calculate the age
+    let dobText = document.getElementById("dob").value;
+    let dob = new Date(dobText);
+    let today = new Date();
+    let age = today.getFullYear() - dob.getFullYear();
+
+    // calculate the spread of the candles depending on the age
+    let spread = 300 / age;
+
+    let cakeRect = cake.getBoundingClientRect();
+
+
+    for (let i = 0; i < age; i++) {
+        let candle = document.createElement("div");
+        candle.classList.add("candle");
+        let flame = document.createElement("div");
+        flame.classList.add("flame");
+        let candleTop = document.createElement("div");
+        candleTop.classList.add("candleTop");
+        let candleBottom = document.createElement("div");
+        candleBottom.classList.add("candleBottom");
+
+        candle.appendChild(flame);
+        candle.appendChild(candleTop);
+        candle.appendChild(candleBottom);
+
+        // add the candle to the cake at the position of the click
+        candle.style.position = "absolute";
+        // adjust the position of the candle by x
+        candle.style.left = (spread * i) + "px";
+        // make the top position of the candle random between the top and bottom of the cake
+        // separate the cke to 3 horizontal layers, with the first and last layer random from 0 to 25, the middle layer from 0 to 45
+        let y = Math.floor(Math.random() *40) - 40;
+        if (spread * i < 50 || spread * i > 250){
+            // random between -15 and -25
+            y = Math.floor(Math.random() *10) - 25;
+        }
+
+        let yPos = -cakeRect.top;
+
+        let id = setInterval(frame, 1);
+        function frame() {
+            if (yPos >= y) {
+                clearInterval(id);
+            } else {
+                yPos+=3;
+                candle.style.top = yPos + 'px';
+            }
+        }
+        
+        cake.appendChild(candle);
+        
+        // delay the loop to make the candles appear one by one
+        await new Promise(r => setTimeout(r, 200));
+    }
+
+
+}
+
 
 /* Template for candle
 <div class = "candle">
@@ -191,8 +258,9 @@ function flavorCake(flavour) {
     } else if (flavour == "Strawberry") {
         top.style.backgroundColor = "#ffb7b7";
         layer1.style.backgroundColor = "#ff8f8f";
-        layer2.style.backgroundColor = "#fd5f5f";
-        layer3.style.backgroundColor = "#e53939";
+        layer2.style.backgroundImage = "url(\"./cakes/Strawberry_Raised.jpg\")";
+        layer2.style.backgroundSize = "cover";
+        layer3.style.backgroundColor = "#ff8f8f";
     } else if (flavour == "Red Velvet") {
         top.style.backgroundColor = "#c1121f";
         layer1.style.backgroundColor = "#780000";
