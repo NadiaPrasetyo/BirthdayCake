@@ -52,7 +52,7 @@ body {
     border-radius: 50%;
     background-color: #ffcc6c;
     box-shadow: 0 0 5px #ffcc6c;
-    z-index: 4;
+    z-index: 1;
     animation-name: lit;
     animation-duration: 2s;
     animation-iteration-count: infinite;
@@ -613,7 +613,7 @@ textarea {
     border-radius: 75% 75% 70% 70%;
     opacity: 0.8;
     animation: float 10s linear infinite;
-    /* Set balloons behind the cake */
+    /* Set balloons infront of everything */
     z-index: 100; 
   }
   
@@ -623,7 +623,7 @@ textarea {
     height: 75px;
     width: 1px;
     padding: 1px;
-    background-color: #FDFD96;
+    background-color: #f1f1df;
     display: block;
     position: absolute;
     top: 125px;

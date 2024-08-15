@@ -33,6 +33,9 @@ function process() {
     let dob = new Date(dobText);
     let today = new Date();
     let age = today.getFullYear() - dob.getFullYear();
+    if (age < 1) {
+        age = 1;
+    }
 
     // Change the banner message to have the name of the person
     let name = document.getElementById("bannerMessage");
@@ -129,6 +132,10 @@ async function ageCandles(age) {
                 </div>
 */
 
+/**
+ * Function to add a candle to the cake
+ * @param {Event} eventData
+ */
 function addCandle(eventData) {
     let second_message = document.getElementById("second_message");
     second_message.style.visibility = "visible";
@@ -202,6 +209,9 @@ function addCandle(eventData) {
     webaudio_tooling_obj();
 }
 
+/**
+ * Function to turn off a candle
+ */
 function turnCandleOFF() {
     //randomise which candle is turned off
     let candles = document.getElementsByClassName("candle");
@@ -210,7 +220,10 @@ function turnCandleOFF() {
     flame.style.visibility = "hidden";
 }
 
-// check if all candles are turned off
+/**
+ * Function to check if all candles are off
+ * @returns {Boolean} true if all candles are off, false otherwise
+ */
 function checkCandlesOFF() {
     let candles = document.getElementsByClassName("candle");
     for (let i = 0; i < candles.length; i++) {
@@ -226,6 +239,10 @@ function checkCandlesOFF() {
 /* Banner functions ---------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------
 */
+
+/**
+ * Function to push down the banner
+ */
 function pushDownBanner() {
     let banner = document.getElementById("banner");
     let yPos = -200;
@@ -340,7 +357,7 @@ function flavorCake(flavour) {
         layer1.style.visibility = "hidden";
         layer2.style.visibility = "hidden";
     } else if (flavour == "Vanilla") {
-
+        /**@todo finish the vanilla texture */
     }
 }
 
@@ -349,12 +366,20 @@ function flavorCake(flavour) {
 -------------------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------*/
 
+/**
+ * Function to randomize the speed of the balloons
+ * @param {*} balloon 
+ */
 function randomizeBalloonSpeed(balloon) {
     // Random speed between 5s and 10s
     const speed = Math.random() * 5 + 15;
     balloon.style.animationDuration = speed + "s";
 }
 
+/**
+ * Function to create a balloon
+ * @returns {Element} balloon
+ */
 function createBalloon() {
     const balloon = document.createElement('div');
     balloon.classList.add('balloon');
@@ -373,6 +398,9 @@ function createBalloon() {
     return balloon;
 }
 
+/**
+ * Function to generate balloons
+ */
 function generateBalloons() {
     const container = document.getElementById('balloonContainer');
 
@@ -399,12 +427,19 @@ if (test == false) {
 -------------------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------*/
 
+/* Setting up global variables for microphone*/
 let media_stream = null,
     audioContext = null,
     micStream = null,
     analyserNode = null,
     scriptProcessor = null;
 
+/**
+ * Function to set up the microphone
+ * Uses getUserMedia to get the microphone input
+ * Uses the analyser node to get the frequency data
+ * Uses the script processor to process the frequency data
+ */
 function webaudio_tooling_obj() {
 
     // check if audiocontext is null and or if is running
@@ -418,6 +453,7 @@ function webaudio_tooling_obj() {
 
     // console.log("audio is starting up ...");
 
+    // Check if the browser supports getUserMedia and get the microphone input
     if (!navigator.getUserMedia)
         navigator.getUserMedia =
         navigator.getUserMedia ||
@@ -438,6 +474,15 @@ function webaudio_tooling_obj() {
 
     // ---
 
+    /**
+     * Function to show the data from the microphone
+     * If the value is greater than 180, turn off the candles
+     * If all candles are off, generate balloons and push down the banner in the first blow
+     * If the candles are off, show the remove candles button and stop the microphone
+     * @param {Array} array
+     * @param {Number} rows
+     * @param {String} label
+     */
     function showData(array, rows, label) {
         // console.log("__________ " + label);
         array.slice(0, rows).forEach(value => {
@@ -460,7 +505,10 @@ function webaudio_tooling_obj() {
 
     }
 
-
+    /**
+     * Function to start the microphone
+     * @param {*} stream 
+     */
     function start_microphone(stream) {
         media_stream = stream;
         const gainNode = audioContext.createGain();
@@ -487,6 +535,12 @@ function webaudio_tooling_obj() {
     }
 }
 
+
+/**
+ * Function to stop the microphone
+ * Disconnects all the nodes and stops the tracks
+ * Closes the audio context
+ */
 function stop_microphone() {
     if (media_stream) {
         media_stream.getTracks().forEach(track => track.stop());
@@ -526,7 +580,12 @@ function removeCandles() {
     remove.style.visibility = "hidden";
     let first_message = document.getElementById("first_message");
     let instructions = document.getElementById("instruct");
+
+    // Display the instructions and the first message
     instructions.style.display = "block";
     first_message.style.visibility = "visible";
+
+    // Add the addCandle event listener to the cake
+    // From now on the user can add candles to the cake by clicking on it
     cake.addEventListener("click", addCandle);
 }
