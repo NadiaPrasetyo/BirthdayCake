@@ -186,7 +186,6 @@ function addCandle(eventData) {
         }
     }
     cake.appendChild(candle);
-    candle.addEventListener("click", turnCandleOFF);
 }
 
 function turnCandleOFF() {
@@ -210,7 +209,8 @@ function checkCandlesOFF() {
     return true;
 }
 
-/*
+/* Banner functions ---------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------
 */
 function pushDownBanner() {
 
