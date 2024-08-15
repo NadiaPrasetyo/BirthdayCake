@@ -102,6 +102,8 @@ async function ageCandles() {
 
 /* Template for candle
 <div class = "candle">
+                    <div class = "wick">
+                    </div>
                     <div class = "flame">
                     </div>
                     <div class = "candleTop">
@@ -122,6 +124,8 @@ function addCandle(eventData){
     
     let candle = document.createElement("div");
     candle.classList.add("candle");
+    let wick = document.createElement("div");
+    wick.classList.add("wick");
     let flame = document.createElement("div");
     flame.classList.add("flame");
     let candleTop = document.createElement("div");
@@ -129,6 +133,7 @@ function addCandle(eventData){
     let candleBottom = document.createElement("div");
     candleBottom.classList.add("candleBottom");
 
+    candle.appendChild(wick);
     candle.appendChild(flame);
     candle.appendChild(candleTop);
     candle.appendChild(candleBottom);
@@ -175,7 +180,35 @@ function addCandle(eventData){
       candle.style.top = yPos -40 + 'px';
     }
   }
-  cake.appendChild(candle);
+    cake.appendChild(candle);
+    candle.addEventListener("click", turnCandleOFF);
+}
+
+function turnCandleOFF(){
+    //randomise which candle is turned off
+    let candles = document.getElementsByClassName("candle");
+    let candle = candles[Math.floor(Math.random() * candles.length)];
+    let flame = candle.getElementsByClassName("flame")[0];
+    flame.style.visibility = "hidden";
+}
+
+// check if all candles are turned off
+function checkCandlesOFF(){
+    let candles = document.getElementsByClassName("candle");
+    for (let i = 0; i < candles.length; i++){
+        let candle = candles[i];
+        let flame = candle.getElementsByClassName("flame")[0];
+        if (flame.style.visibility == "visible"){
+            return false;
+        }
+    }
+    return true;
+}
+
+/*
+*/
+function pushDownBanner(){
+
 }
 
 /**
