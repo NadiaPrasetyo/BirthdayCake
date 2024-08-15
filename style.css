@@ -180,11 +180,23 @@ body {
     margin-left: auto;
     margin-right: auto;
     font-family: "Source Code Pro", monospace;
-    font-size: 1.5em;
+    font-size: 1.5rem;
     font-weight: 600;
     color: #000;
     display: none;
     z-index: 50;
+}
+
+/* Media query for smaller screens */
+@media screen and (max-height: 700px) {
+    #instruct {
+        font-size: 90%;
+    }
+
+    #removeCandles {
+        font-size: 90%;
+    }
+    
 }
 
 #first_message {
