@@ -121,6 +121,9 @@ async function ageCandles(age) {
 */
 
 function addCandle(eventData) {
+    let second_message = document.getElementById("second_message");
+    second_message.style.visibility = "visible";
+    webaudio_tooling_obj();
 
     // find the relative position of the click relative to the cake
     let cakeRect = cake.getBoundingClientRect();

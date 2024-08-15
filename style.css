@@ -183,6 +183,7 @@ body {
     font-weight: 600;
     color: #000;
     display: none;
+    z-index: 50;
 }
 
 #first_message {
@@ -349,7 +350,7 @@ textarea {
     opacity: 0.8;
     animation: float 10s linear infinite;
     /* Set balloons behind the cake */
-    z-index: 1; 
+    z-index: 100; 
   }
   
   /* balloon sticks */
