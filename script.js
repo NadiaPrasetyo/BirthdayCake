@@ -35,6 +35,8 @@ function process () {
 
 /* Template for candle
 <div class = "candle">
+                    <div class = "wick">
+                    </div>
                     <div class = "flame">
                     </div>
                     <div class = "candleTop">
