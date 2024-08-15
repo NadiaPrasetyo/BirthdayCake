@@ -216,7 +216,17 @@ function checkCandlesOFF() {
 -------------------------------------------------------------------------------------------------------------------
 */
 function pushDownBanner() {
-
+    let banner = document.getElementById("banner");
+    let yPos = -200;
+    let id = setInterval(frame, 1);
+    function frame() {
+        if (yPos >= 0) {
+            clearInterval(id);
+        } else {
+            yPos += 2;
+            banner.style.top = yPos + 'px';
+        }
+    }
 }
 
 /**
