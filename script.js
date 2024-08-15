@@ -125,6 +125,25 @@ function turnCandleOFF(){
     flame.style.visibility = "hidden";
 }
 
+// check if all candles are turned off
+function checkCandlesOFF(){
+    let candles = document.getElementsByClassName("candle");
+    for (let i = 0; i < candles.length; i++){
+        let candle = candles[i];
+        let flame = candle.getElementsByClassName("flame")[0];
+        if (flame.style.visibility == "visible"){
+            return false;
+        }
+    }
+    return true;
+}
+
+/*
+*/
+function pushDownBanner(){
+
+}
+
 /**
  * Function to validate the name input
  * @param {String} nameText
