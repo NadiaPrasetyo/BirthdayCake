@@ -4,6 +4,7 @@ const test = true;
 const micTest = false;
 
 let blowed = false;
+let ribbonPulled = false;
 
 
 /**
@@ -152,6 +153,12 @@ async function ageCandles(age) {
 function addCandle(eventData) {
     let second_message = document.getElementById("second_message");
     second_message.style.visibility = "visible";
+    let ribbon = document.getElementById("ribbon");
+    if (ribbonPulled == false) {
+        ribbon.style.animation = "pullRibbon 2s";
+        ribbon.style.left = "-20vw";
+        ribbonPulled = true;
+    }
 
 
     // find the relative position of the click relative to the cake
