@@ -30,7 +30,7 @@ body {
 }
 
 .rods{
-    width: 335px;
+    width: 305px;
     height: 75px;
     border-left: 15px solid #704726;
     border-right: 15px solid #704726;
@@ -38,8 +38,8 @@ body {
 
 .boardborder{
     position: absolute;
-    width: 335px;
-    height: 110px;
+    width: 305px;
+    height: 80px;
     font-size: 0.8em;
     border: 15px solid #704726;
     border-bottom-left-radius: 50px;
@@ -511,6 +511,7 @@ form li + li {
 
 label {
     /* Uniform size & alignment */
+    font-family: "Source Code Pro", monospace;
     display: inline-block;
     min-width: 90px;
     text-align: left;
@@ -519,6 +520,7 @@ label {
 input,
 textarea, select {
     /* Uniform text field size */
+    font-family: "Source Code Pro", monospace;
     width: 300px;
     box-sizing: border-box;
     /* Match form field borders */

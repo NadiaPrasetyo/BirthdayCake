@@ -4,7 +4,7 @@ const test = true;
 const micTest = false;
 
 let blowed = false;
-
+let ribbonPulled = false;
 
 /**
  * Function to process the form
@@ -17,6 +17,7 @@ function process() {
     var e = document.getElementById("flavour");
     var flavourText = e.options[e.selectedIndex].text;
     var messageText = "";//UPDATE LATER
+    var fromText = "NadCaWin";//UPDATE LATER
 
         // change animation to slide out
         let card = document.getElementById("Card");
@@ -40,7 +41,17 @@ function process() {
     nameText = nameText.charAt(0).toUpperCase() + nameText.slice(1);
     name.innerHTML = "Happy Birthday <br>" + nameText + "!";
 
+    let content_header = document.getElementById("content_header");
+    // change the content header to have the name of the person
+    content_header.innerHTML = "Happy Birthday <br>" + nameText + ",";
 
+    let content_message = document.getElementById("content_message");
+    // change the content message to have the message of the person
+    content_message.innerHTML = messageText;
+
+    let content_from = document.getElementById("content_from");
+    // change the content from to have the from of the person
+    content_from.innerHTML = "From " + fromText;
 
     // Flavor the cake
     flavorCake(flavourText);
@@ -136,6 +147,12 @@ async function ageCandles(age) {
 function addCandle(eventData) {
     let second_message = document.getElementById("second_message");
     second_message.style.visibility = "visible";
+    let ribbon = document.getElementById("ribbon");
+    if (ribbonPulled == false) {
+        ribbon.style.animation = "pullRibbon 2s";
+        ribbon.style.left = "-20vw";
+        ribbonPulled = true;
+    }
 
 
     // find the relative position of the click relative to the cake
@@ -498,6 +515,7 @@ function webaudio_tooling_obj() {
             stop_microphone();
             let remove = document.getElementById("removeCandles");
             remove.style.visibility = "visible";
+            explode();
         }
 
     }
@@ -594,7 +612,10 @@ function removeCandles() {
  * Function to make the message card appear
  */
 function messageCardAppear(){
-
+    let messageContainer = document.getElementById("cardContainer");
+    messageContainer.style.animation = "slideInCard 2s"; 
+    messageContainer.style.animationFillMode = "forwards";
+    explode();
 }
 
 /* Drag ribbon ---------------------------------------------------------------------------------------------------
@@ -603,11 +624,14 @@ function messageCardAppear(){
 
 // Make the DIV element draggable:
 document.addEventListener("DOMContentLoaded", function() {
-    dragElement(document.getElementById("ribbon"));
+    dragElement(document.getElementById("ribbon"), -25, 0, false);
+    dragElement(document.getElementById("messageCard"), 0, 90, true);
 });
 
-function dragElement(elmnt) {
-  var pos1 = 0, pos3 = 0;
+function dragElement(elmnt, min, max, vertical) {
+  var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+  var initialLeft = 0;
+  var initialTop = 0;
   if (document.getElementById(elmnt.id + "Header")) {
     // if present, the header is where you move the DIV from:
     document.getElementById(elmnt.id + "Header").onmousedown = dragMouseDown;
@@ -621,6 +645,7 @@ function dragElement(elmnt) {
     e.preventDefault();
     // get the mouse cursor position at startup:
     pos3 = e.clientX;
+    pos4 = e.clientY;
     document.onmouseup = closeDragElement;
     // call a function whenever the cursor moves:
     document.onmousemove = elementDrag;
@@ -631,19 +656,53 @@ function dragElement(elmnt) {
     e.preventDefault();
     // calculate the new cursor position:
     pos1 = pos3 - e.clientX;
+    pos2 = pos4 - e.clientY;
     pos3 = e.clientX;
+    pos4 = e.clientY;
     // set the element's new position:
-    elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+
+    if(window.getComputedStyle(elmnt).position == "absolute"){
+
+        elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+        if (vertical) {
+            elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+        }
+    }else {
+        
+        initialLeft = initialLeft - pos1;
+
+        elmnt.style.left = initialLeft + "px";
+        if (vertical) {
+            initialTop = initialTop - pos2;
+            elmnt.style.top = initialTop + "px";
+        }
+    }
 
     // make a maximum and minimum position for the ribbon
-    // min is -25vw, max is 0vw
+
+
+
     let vw = window.innerWidth / 100;
-    if (elmnt.offsetLeft < (-25 * vw)) {
-        elmnt.style.left = "-25vw";
+
+    if (elmnt.offsetLeft < (min * vw)) {
+        if(window.getComputedStyle(elmnt).position == "absolute"){
+            elmnt.style.left = min + "vw";
+        }else{
+            initialLeft = 0;
+            elmnt.style.left = initialLeft + "px";
+        }
     }
-    if (elmnt.offsetLeft > 0) {
-        elmnt.style.left = "0vw";
-        console.log("max");
+    if (elmnt.offsetLeft > max * vw) {
+        if(window.getComputedStyle(elmnt).position == "absolute"){
+            elmnt.style.left = max + "vw";
+            // make the message card appear
+            messageCardAppear();
+            // hide the ribbon
+            elmnt.style.display = "none";
+        }else{
+            initialLeft = 0;
+            elmnt.style.left = initialLeft + "px";
+        }
     }
     
   }
