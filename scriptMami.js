@@ -436,13 +436,6 @@ function generateBalloons() {
 }
 
 
-/* change to when candles are blown up */
-if (test == false) {
-    window.addEventListener("click", () => {
-        generateBalloons();
-    });
-}
-
 
 
 /* MIC Functions -------------------------------------------------------------------------------------------------
