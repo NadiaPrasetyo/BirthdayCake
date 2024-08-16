@@ -371,7 +371,11 @@ function flavorCake(flavour) {
         layer1.style.visibility = "hidden";
         layer2.style.visibility = "hidden";
     } else if (flavour == "Vanilla") {
-        /**@todo finish the vanilla texture */
+        top.style.backgroundImage = "url(\"./cakes/Vanilla-top.jpg\")";
+        top.style.backgroundSize = "cover";
+        layer1.style.background = "linear-gradient(bisque, #f5f5dc)";
+        layer2.style.backgroundColor = "#f5f5dc";
+        layer3.style.background = "#f5f5dc";
     }
 }
 
