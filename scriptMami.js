@@ -12,22 +12,17 @@ let blowed = false;
 function process() {
     // make the form not restart the page
     event.preventDefault();
-    var nameText = document.getElementById("name").value;
-    var dobText = document.getElementById("dob").value;
+    var nameText = "Mami";
+    var dobText = "1975-08-17";
     var e = document.getElementById("flavour");
     var flavourText = e.options[e.selectedIndex].text;
-    var messageText = document.getElementById("message").value;
+    var messageText = "";//UPDATE LATER
 
-
-    if ((validname(nameText) && validbirthday(dobText)) || test) {
         // change animation to slide out
         let card = document.getElementById("Card");
         card.style.animation = "slideOut 2s";
         card.style.animationFillMode = "forwards";
-    } else {
-        invalidAnim();
-    }
-    
+
     var cake = document.getElementById("cake");
 
     // Calculate the age of the person
@@ -37,6 +32,7 @@ function process() {
     if (age < 1) {
         age = 1;
     }
+    console.log(age);
 
     // Change the banner message to have the name of the person
     let name = document.getElementById("bannerMessage");
@@ -258,41 +254,41 @@ function pushDownBanner() {
     }
 }
 
-/**
- * Function to validate the name input
- * @param {String} nameText
- * @returns {Boolean}
- */
-function validname(nameText) {
-    if (nameText == "") {
-        // change the color of the input field border
-        document.getElementById("name").style.border = "1px solid red";
-        return false;
-    }
-    document.getElementById("name").style.border = "1px solid hsl(266, 59%, 60%)";
-    return true;
-}
+// /**
+//  * Function to validate the name input
+//  * @param {String} nameText
+//  * @returns {Boolean}
+//  */
+// function validname(nameText) {
+//     if (nameText == "") {
+//         // change the color of the input field border
+//         document.getElementById("name").style.border = "1px solid red";
+//         return false;
+//     }
+//     document.getElementById("name").style.border = "1px solid hsl(266, 59%, 60%)";
+//     return true;
+// }
 
-/**
- * Function to validate the birthday input
- * @param {String} dobText
- * @returns {Boolean}
- */
-function validbirthday(dobText) {
-    if (dobText == "") {
-        // change the color of the input field border
-        document.getElementById("dob").style.border = "1px solid red";
-        return false;
-    }
-    // check if the date is complete
-    let date = new Date(dobText);
-    if (date == "Invalid Date") {
-        document.getElementById("dob").style.border = "1px solid red";
-        return false;
-    }
-    document.getElementById("dob").style.border = "1px solid hsl(266, 59%, 60%)";
-    return true;
-}
+// /**
+//  * Function to validate the birthday input
+//  * @param {String} dobText
+//  * @returns {Boolean}
+//  */
+// function validbirthday(dobText) {
+//     if (dobText == "") {
+//         // change the color of the input field border
+//         document.getElementById("dob").style.border = "1px solid red";
+//         return false;
+//     }
+//     // check if the date is complete
+//     let date = new Date(dobText);
+//     if (date == "Invalid Date") {
+//         document.getElementById("dob").style.border = "1px solid red";
+//         return false;
+//     }
+//     document.getElementById("dob").style.border = "1px solid hsl(266, 59%, 60%)";
+//     return true;
+// }
 
 /**
  * Function to animate the card when the input is invalid
