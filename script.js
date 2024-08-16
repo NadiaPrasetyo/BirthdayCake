@@ -768,11 +768,4 @@ function render(particles, ctx, width, height, direction) {
     return ctx;
 }
 
-
-
 const r = (a, b, c) => parseFloat((Math.random() * ((a ? a : 1) - (b ? b : 0)) + (b ? b : 0)).toFixed(c ? c : 0));
-
-// Add confetti per click
-// window.addEventListener('click', () => {        
-//     explode();
-// });
