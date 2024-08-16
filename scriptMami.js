@@ -12,23 +12,17 @@ let blowed = false;
 function process() {
     // make the form not restart the page
     event.preventDefault();
-    var nameText = document.getElementById("name").value;
-    var dobText = document.getElementById("dob").value;
+    var nameText = "Mami";
+    var dobText = "1975-08-17";
     var e = document.getElementById("flavour");
     var flavourText = e.options[e.selectedIndex].text;
-    var messageText = document.getElementById("message").value;
-    var fromText = document.getElementById("from").value;
+    var messageText = "";//UPDATE LATER
 
-
-    if ((validname(nameText) && validname(fromText) && validbirthday(dobText)) || test) {
         // change animation to slide out
         let card = document.getElementById("Card");
         card.style.animation = "slideOut 2s";
         card.style.animationFillMode = "forwards";
-    } else {
-        invalidAnim();
-    }
-    
+
     var cake = document.getElementById("cake");
 
     // Calculate the age of the person
@@ -38,6 +32,7 @@ function process() {
     if (age < 1) {
         age = 1;
     }
+    console.log(age);
 
     // Change the banner message to have the name of the person
     let name = document.getElementById("bannerMessage");
@@ -45,17 +40,6 @@ function process() {
     nameText = nameText.charAt(0).toUpperCase() + nameText.slice(1);
     name.innerHTML = "Happy Birthday <br>" + nameText + "!";
 
-    let content_header = document.getElementById("content_header");
-    // change the content header to have the name of the person
-    content_header.innerHTML = "Happy Birthday <br>" + nameText + ",";
-
-    let content_message = document.getElementById("content_message");
-    // change the content message to have the message of the person
-    content_message.innerHTML = messageText;
-
-    let content_from = document.getElementById("content_from");
-    // change the content from to have the from of the person
-    content_from.innerHTML = "From " + fromText;
 
 
     // Flavor the cake
@@ -270,41 +254,41 @@ function pushDownBanner() {
     }
 }
 
-/**
- * Function to validate the name input
- * @param {String} nameText
- * @returns {Boolean}
- */
-function validname(nameText) {
-    if (nameText == "") {
-        // change the color of the input field border
-        document.getElementById("name").style.border = "1px solid red";
-        return false;
-    }
-    document.getElementById("name").style.border = "1px solid hsl(266, 59%, 60%)";
-    return true;
-}
+// /**
+//  * Function to validate the name input
+//  * @param {String} nameText
+//  * @returns {Boolean}
+//  */
+// function validname(nameText) {
+//     if (nameText == "") {
+//         // change the color of the input field border
+//         document.getElementById("name").style.border = "1px solid red";
+//         return false;
+//     }
+//     document.getElementById("name").style.border = "1px solid hsl(266, 59%, 60%)";
+//     return true;
+// }
 
-/**
- * Function to validate the birthday input
- * @param {String} dobText
- * @returns {Boolean}
- */
-function validbirthday(dobText) {
-    if (dobText == "") {
-        // change the color of the input field border
-        document.getElementById("dob").style.border = "1px solid red";
-        return false;
-    }
-    // check if the date is complete
-    let date = new Date(dobText);
-    if (date == "Invalid Date") {
-        document.getElementById("dob").style.border = "1px solid red";
-        return false;
-    }
-    document.getElementById("dob").style.border = "1px solid hsl(266, 59%, 60%)";
-    return true;
-}
+// /**
+//  * Function to validate the birthday input
+//  * @param {String} dobText
+//  * @returns {Boolean}
+//  */
+// function validbirthday(dobText) {
+//     if (dobText == "") {
+//         // change the color of the input field border
+//         document.getElementById("dob").style.border = "1px solid red";
+//         return false;
+//     }
+//     // check if the date is complete
+//     let date = new Date(dobText);
+//     if (date == "Invalid Date") {
+//         document.getElementById("dob").style.border = "1px solid red";
+//         return false;
+//     }
+//     document.getElementById("dob").style.border = "1px solid hsl(266, 59%, 60%)";
+//     return true;
+// }
 
 /**
  * Function to animate the card when the input is invalid
@@ -610,9 +594,7 @@ function removeCandles() {
  * Function to make the message card appear
  */
 function messageCardAppear(){
-    let messageContainer = document.getElementById("cardContainer");
-    messageContainer.style.animation = "slideInCard 2s"; 
-    messageContainer.style.animationFillMode = "forwards";
+
 }
 
 /* Drag ribbon ---------------------------------------------------------------------------------------------------
@@ -621,14 +603,11 @@ function messageCardAppear(){
 
 // Make the DIV element draggable:
 document.addEventListener("DOMContentLoaded", function() {
-    dragElement(document.getElementById("ribbon"), -25, 0, false);
-    dragElement(document.getElementById("messageCard"), 0, 90, true);
+    dragElement(document.getElementById("ribbon"));
 });
 
-function dragElement(elmnt, min, max, vertical) {
-  var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-  var initialLeft = 0;
-  var initialTop = 0;
+function dragElement(elmnt) {
+  var pos1 = 0, pos3 = 0;
   if (document.getElementById(elmnt.id + "Header")) {
     // if present, the header is where you move the DIV from:
     document.getElementById(elmnt.id + "Header").onmousedown = dragMouseDown;
@@ -642,7 +621,6 @@ function dragElement(elmnt, min, max, vertical) {
     e.preventDefault();
     // get the mouse cursor position at startup:
     pos3 = e.clientX;
-    pos4 = e.clientY;
     document.onmouseup = closeDragElement;
     // call a function whenever the cursor moves:
     document.onmousemove = elementDrag;
@@ -653,53 +631,19 @@ function dragElement(elmnt, min, max, vertical) {
     e.preventDefault();
     // calculate the new cursor position:
     pos1 = pos3 - e.clientX;
-    pos2 = pos4 - e.clientY;
     pos3 = e.clientX;
-    pos4 = e.clientY;
     // set the element's new position:
-
-    if(window.getComputedStyle(elmnt).position == "absolute"){
-
-        elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
-        if (vertical) {
-            elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-        }
-    }else {
-        
-        initialLeft = initialLeft - pos1;
-
-        elmnt.style.left = initialLeft + "px";
-        if (vertical) {
-            initialTop = initialTop - pos2;
-            elmnt.style.top = initialTop + "px";
-        }
-    }
+    elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
 
     // make a maximum and minimum position for the ribbon
-
-
-
+    // min is -25vw, max is 0vw
     let vw = window.innerWidth / 100;
-
-    if (elmnt.offsetLeft < (min * vw)) {
-        if(window.getComputedStyle(elmnt).position == "absolute"){
-            elmnt.style.left = min + "vw";
-        }else{
-            initialLeft = 0;
-            elmnt.style.left = initialLeft + "px";
-        }
+    if (elmnt.offsetLeft < (-25 * vw)) {
+        elmnt.style.left = "-25vw";
     }
-    if (elmnt.offsetLeft > max * vw) {
-        if(window.getComputedStyle(elmnt).position == "absolute"){
-            elmnt.style.left = max + "vw";
-            // make the message card appear
-            messageCardAppear();
-            // hide the ribbon
-            elmnt.style.display = "none";
-        }else{
-            initialLeft = 0;
-            elmnt.style.left = initialLeft + "px";
-        }
+    if (elmnt.offsetLeft > 0) {
+        elmnt.style.left = "0vw";
+        console.log("max");
     }
     
   }
