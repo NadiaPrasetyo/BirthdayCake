@@ -521,6 +521,7 @@ function webaudio_tooling_obj() {
             stop_microphone();
             let remove = document.getElementById("removeCandles");
             remove.style.visibility = "visible";
+            explode();
         }
 
     }
@@ -620,6 +621,7 @@ function messageCardAppear(){
     let messageContainer = document.getElementById("cardContainer");
     messageContainer.style.animation = "slideInCard 2s"; 
     messageContainer.style.animationFillMode = "forwards";
+    explode();
 }
 
 /* Drag ribbon ---------------------------------------------------------------------------------------------------
