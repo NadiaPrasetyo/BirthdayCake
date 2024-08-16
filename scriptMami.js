@@ -617,10 +617,21 @@ function removeCandles() {
  */
 function messageCardAppear(){
     let messageContainer = document.getElementById("cardContainer");
+    messageContainer.style.display = "block";
     messageContainer.style.animation = "slideInCard 2s"; 
     messageContainer.style.animationFillMode = "forwards";
     explode();
 }
+
+/**
+ * Function to for ribbon button
+ */
+function ribbonButton(){
+    const cardContainer = document.querySelector('#cardContainer');
+    cardContainer.style.display = "block";
+    cardContainer.classList.toggle('appear');
+}
+
 
 /* Drag ribbon ---------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------

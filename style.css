@@ -26,7 +26,6 @@ body {
     height: 150px;
     top: -200px;
     left: calc(50% - 335px/2);
-
 }
 
 .rods{
@@ -692,6 +691,15 @@ textarea {
     }
 }
 
+@keyframes slideOutCard {
+    from {
+        left: 0;
+    }
+    to {
+        left: -100%;
+    }
+}
+
 #cardContainer {
     font-family: "Source Code Pro", monospace;
     z-index: 200;
@@ -699,7 +707,7 @@ textarea {
     padding: 50px;
     box-sizing: border-box;
     display: flex;
-    
+    animation: slideOutCard 2s;
     min-height: 100vh;
     justify-content: center;
     align-self: center;
@@ -708,9 +716,9 @@ textarea {
     top: 100px;
     width: 100%;
     height: 100%;
-
     left: -100%;
     pointer-events: none;
+    display: none;
 }
 
 #messageCard {
@@ -859,4 +867,25 @@ textarea {
     padding: 0;
     font-size: 1.5em;
     font-weight: 600;
+}
+
+#ribbonButton {
+    font-family: "Source Code Pro", monospace;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    margin: 0;
+    padding: 0.5rem;
+    font-size: 1.5em;
+    font-weight: 600;
+    color: #fff;   
+    background-color: #78f178;
+    border: 1px solid #6cd66c;
+    --mask:
+      radial-gradient(5.96px at 50% 8.25px,#000 99%,#0000 101%) calc(50% - 10px) 0/20px 51% repeat-x,
+      radial-gradient(5.96px at 50% -3.25px,#0000 99%,#000 101%) 50% 5px/20px calc(51% - 5px) repeat-x,
+      radial-gradient(5.96px at 50% calc(100% - 8.25px),#000 99%,#0000 101%) calc(50% - 10px) 100%/20px 51% repeat-x,
+      radial-gradient(5.96px at 50% calc(100% + 3.25px),#0000 99%,#000 101%) 50% calc(100% - 5px)/20px calc(51% - 5px) repeat-x;
+    -webkit-mask: var(--mask);
+            mask: var(--mask);
+    display: none;
 }

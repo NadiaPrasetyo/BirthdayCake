@@ -156,7 +156,11 @@ function addCandle(eventData) {
     let ribbon = document.getElementById("ribbon");
     if (ribbonPulled == false) {
         ribbon.style.animation = "pullRibbon 2s";
-        ribbon.style.left = "-20vw";
+        if (window.innerWidth < 800) {
+            ribbon.style.left = "0vw";
+        } else {
+            ribbon.style.left = "-20vw";
+        }
         ribbonPulled = true;
     }
 
@@ -623,9 +627,19 @@ function removeCandles() {
  */
 function messageCardAppear(){
     let messageContainer = document.getElementById("cardContainer");
+    messageContainer.style.display = "block";
     messageContainer.style.animation = "slideInCard 2s"; 
     messageContainer.style.animationFillMode = "forwards";
     explode();
+}
+
+/**
+ * Function to for ribbon button
+ */
+function ribbonButton(){
+    const cardContainer = document.querySelector('#cardContainer');
+    cardContainer.style.display = "block";
+    cardContainer.classList.toggle('appear');
 }
 
 /* Drag ribbon ---------------------------------------------------------------------------------------------------

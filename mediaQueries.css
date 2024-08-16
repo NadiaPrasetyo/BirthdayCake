@@ -25,9 +25,32 @@
         width: 100%;
     }
 
-    #ribbonHeader {
-        font-size: 1rem;
-        width: 10vw;
+    #ribbonHeader, #ribbonBody {
+        display: none;
     }
+
+    @keyframes pullRibbon {
+        0% {
+            left: -50vw;
+        }
+        100% {
+            left: 0vw;
+        }
+    }
+
+    #ribbonButton {
+        display: block;
+    }
+
+    #cardContainer.appear {
+        animation: slideInCard 2s forwards;
+    }
+
+    #messageCard {
+        left: 25vw;
+        width: 60vw;
+        height: 50vh;
+    }
+
     
 }
