@@ -1,0 +1,33 @@
+/* Media query for smaller screens */
+@media screen and (max-height: 700px) {
+    #instruct {
+        font-size: 90%;
+    }
+
+    #removeCandles {
+        font-size: 90%;
+    }
+    
+}
+
+/* Media query for mobile screens */
+@media screen and (max-width: 800px) {
+
+    /* change all the width and font */
+
+    #Card {
+        width: 90vw;
+        left: calc(50% - 45vw);
+    }
+
+    .submit, input,
+    textarea, select{
+        width: 100%;
+    }
+
+    #ribbonHeader {
+        font-size: 1rem;
+        width: 10vw;
+    }
+    
+}

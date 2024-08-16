@@ -472,18 +472,6 @@ body {
     z-index: 50;
 }
 
-/* Media query for smaller screens */
-@media screen and (max-height: 700px) {
-    #instruct {
-        font-size: 90%;
-    }
-
-    #removeCandles {
-        font-size: 90%;
-    }
-    
-}
-
 #first_message {
     visibility: hidden;
 }
