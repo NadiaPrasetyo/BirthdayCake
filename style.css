@@ -19,6 +19,8 @@ body {
 #banner{
     /* background-color: #ff9999; */
     font-family: "Source Code Pro", monospace;
+    font-size: 1.5em;
+    font-weight: 600;
     position: absolute;
     width: 335px;
     height: 150px;
@@ -43,6 +45,7 @@ body {
     border-bottom-left-radius: 50px;
     border-bottom-right-radius: 50px;
     background-color: #ff9999;
+    box-shadow: inset 0 0 10px #d45656;
 }
 
 .lights{
@@ -52,6 +55,7 @@ body {
     border-radius: 50%;
     background-color: #ffcc6c;
     box-shadow: 0 0 5px #ffcc6c;
+    filter: blur(1px);
     z-index: 1;
     animation-name: lit;
     animation-duration: 2s;
@@ -60,16 +64,20 @@ body {
 
 @keyframes lit{
     0%{
-        box-shadow: 0 0 5px #fff200;
+        box-shadow: 0 0 5px #ffdd00;
+        background-color: #ffdd00;
     }
     30%{
-        box-shadow: 0 0 20px #ffffff;
+        box-shadow: 0 0 20px #ffc400;
+        background-color: #ffc400;
     }
     60%{
-        box-shadow: 0 0 5px #ffd500;
+        box-shadow: 0 0 5px #ffdd00;
+        background-color: #ffdd00;
     }
     100%{
-        box-shadow: 0 0 20px #ffd500;
+        box-shadow: 0 0 20px #ffc400;
+        background-color: #ffc400;
     }
 }
 
