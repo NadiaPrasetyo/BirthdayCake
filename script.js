@@ -657,3 +657,120 @@ function dragElement(elmnt) {
     document.onmousemove = null;
   }
 }
+
+
+/* Confetti ---------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------*/
+const colors = ['#D8589F', '#EE4523', '#FBE75D', '#4FC5DF'];
+const bubbles = 100;
+
+function explode() {
+    const x = window.innerWidth; 
+    const y = window.innerHeight; 
+
+    let particles1 = [];
+    let particles2 = [];
+    let ratio = window.devicePixelRatio;
+    let c1 = document.createElement('canvas');
+    let c2 = document.createElement('canvas');
+    let ctx1 = c1.getContext('2d');
+    let ctx2 = c2.getContext('2d');
+
+    c1.style.position = 'absolute';
+    c1.style.left = (0 - (x/2)) + 'px'; // Position the canvas at the right edge
+    c1.style.top = (0 - (y/15)) + 'px'; // Adjust the top position to center around (x, y)
+    c1.style.pointerEvents = 'none';
+    c1.style.width = x + 'px';
+    c1.style.height = y + 'px';
+    c1.style.zIndex = 9999;
+    c1.width = x * ratio;
+    c1.height = y * ratio;
+    document.body.appendChild(c1);
+
+    c2.style.position = 'absolute';
+    c2.style.left = (x/ 2) + 'px'; // Position the canvas at the left edge
+    c2.style.top = ( 0 - (y/15)) + 'px'; // Adjust the top position to center around (x, y)
+    c2.style.pointerEvents = 'none';
+    c2.style.width = x + 'px';
+    c2.style.height = y + 'px';
+    c2.style.zIndex = 9999;
+    c2.width = x * ratio;
+    c2.height = y * ratio;
+    document.body.appendChild(c2);
+
+    for(let i = 0; i < bubbles; i++) {
+        const angle = Math.random() * 90 - 45;
+        const speed = r(5, 10);
+
+        particles1.push({
+            x: c1.width / 2,
+            y: c1.height / 2,
+            radius: r(3, 8),
+            color: colors[Math.floor(Math.random() * colors.length)],
+            angle: angle, 
+            speed: speed,
+            friction: .99,
+            fade: .02,
+            opacity: r(100, 100, true),
+            xVel: speed * Math.cos(angle * Math.PI / 180),
+            yVel: speed * Math.sin(angle * Math.PI / 180),
+        });
+
+        particles2.push({
+            x: c2.width / 2,
+            y: c2.height / 2,
+            radius: r(3, 8),
+            color: colors[Math.floor(Math.random() * colors.length)],
+            angle: angle, 
+            speed: speed,
+            friction: .99,
+            fade: .02,
+            opacity: r(100, 100, true),
+            xVel: speed * Math.cos(angle * Math.PI / 180),
+            yVel: speed * Math.sin(angle * Math.PI / 180),
+        });
+    }
+
+    render(particles1, ctx1, c1.width, c1.height, "left");
+    render(particles2, ctx2, c2.width, c2.height, "right");
+}
+
+function render(particles, ctx, width, height, direction) {
+    requestAnimationFrame(() => render(particles, ctx, width, height, direction));
+    ctx.clearRect(0, 0, width, height);
+
+    particles.forEach((p) => {
+        // Move particles based on velocity
+        if(direction == "left"){
+            p.x += p.xVel; // Move particles to the left
+        }
+        else {
+            p.x -= p.xVel; // Move particles to the right
+        }
+        p.y += p.yVel;
+
+        // Apply friction and fade to particles
+        p.xVel *= p.friction;
+        p.yVel *= p.friction;
+        p.radius -= p.fade;
+        p.opacity -= 0.005;
+
+        if(p.opacity < 0 || p.radius < 0) return;
+
+        ctx.beginPath();
+        ctx.globalAlpha = p.opacity;
+        ctx.fillStyle = p.color;
+        ctx.arc(p.x, p.y, p.radius, 0, 2 * Math.PI, false);
+        ctx.fill();
+    });
+
+    return ctx;
+}
+
+const r = (a, b, c) => parseFloat((Math.random() * ((a ? a : 1) - (b ? b : 0)) + (b ? b : 0)).toFixed(c ? c : 0));
+
+// Run the thing
+window.addEventListener('click', () => {        
+    explode();
+});
