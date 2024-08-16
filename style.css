@@ -627,71 +627,199 @@ textarea {
     width: 100%;
     height: 100vh;
     overflow: hidden;
-  }
-  
-  #balloonContainer {
+}
+
+#balloonContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* Set balloons behind the cake */
+  z-index: 1; 
+}
+
+.balloon {
+  position: absolute;
+  bottom: -150px;
+  width: 105px;
+  height: 125px;
+  border-radius: 75% 75% 70% 70%;
+  opacity: 0.8;
+  animation: float 10s linear infinite;
+  /* Set balloons infront of everything */
+  z-index: 100; 
+}
+
+/* balloon sticks */
+.balloon:before {
+  content: "";
+  height: 75px;
+  width: 1px;
+  padding: 1px;
+  background-color: #f1f1df;
+  display: block;
+  position: absolute;
+  top: 125px;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+/* balloon triangle */
+.balloon:after {
+    content: "▲";
+    text-align: center;
+    display: block;
+    position: absolute;
+    color: inherit;
+    top: 120px;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+
+/* balloon float animation */
+
+
+
+@keyframes float {
+    0% {
+        bottom: -150px; /* Start position off-screen */
+        opacity: 1;
+    }
+    100% {
+        bottom: 300vh; /* Move to top of the screen */
+        opacity: 0;
+    }
+}
+
+/* Message card */
+
+@keyframes slideinhorizontal {
+    from {
+        left: -100%;
+    }
+    to {
+        left: 0;
+    }
+}
+
+.cardContainer {
+    z-index: 200;
+    margin: 0;
+    padding: 50px;
+    box-sizing: border-box;
+    font-family: "Source Code Pro", monospace;
+    min-height: 100vh;
+    justify-content: center;
+    align-self: center;
+    overflow: hidden;
+    position: absolute;
+    top: 100px;
+    width: 100%;
+    height: 100%;
+
+    display: none;
+    animation: slideinhorizontal 3s;
+
+}
+
+.messageCard {
+    position: relative;
+    width: 335px;
+    height: 400px;
+    background-color: rgb(215, 173, 235);
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    cursor: pointer;
+    box-shadow: 10px 0 20px rgba(0, 0, 0, 0.4),
+        inset 335px 0 50px rgba(0, 0, 0, 0.2);
+    transform: perspective(2000px) rotateZ(0);
+    transform-style: preserve-3d;
+    transition: all 0.5s ease-in;
+}
+
+.cover {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    /* Set balloons behind the cake */
-    z-index: 1; 
-  }
-  
-  .balloon {
+    background-color: rgb(215, 173, 235);
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    transform-origin: left;
+    transform-style: preserve-3d;
+    transition: all 0.5s ease-in;
+}
+
+.messageCard:hover {
+    /* move the book to the right */
+    transform: perspective(2000px) rotateZ(-5deg);
+    box-shadow: 10px 0 20px rgba(0, 0, 0, 0.2),
+        inset 20px 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.messageCard:hover .cover {
+    transform: rotateY(-135deg);
+    box-shadow: 10px 0 20px rgba(0, 0, 0, 0.4);
+}
+
+.content {
+    width: 100%;
+    height: 100%;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+}
+
+.content h2 {
+    margin-bottom: 1rem;
+}
+
+
+/* Pull Ribon */
+#ribbon {
     position: absolute;
-    bottom: -150px;
-    width: 105px;
-    height: 125px;
-    border-radius: 75% 75% 70% 70%;
-    opacity: 0.8;
-    animation: float 10s linear infinite;
-    /* Set balloons infront of everything */
-    z-index: 100; 
-  }
+    display: flex;
+    top: calc(50% - 7.5vh);
+    left: -20vw;
+    height: 15vh;
+    width: 30vw;
+    z-index: 9;
+    text-align: center;
+}
+
+#ribbonBody {
+    z-index: 10;
+    background-color: #C1E1C1;
+    border: 1px solid #a2dfa2;
+    width: 25vw;
+    height: 100%;
+}
   
-  /* balloon sticks */
-  .balloon:before {
-    content: "";
-    height: 75px;
-    width: 1px;
-    padding: 1px;
-    background-color: #f1f1df;
-    display: block;
-    position: absolute;
-    top: 125px;
-    left: 0;
-    right: 0;
-    margin: auto;
-  }
-  
-  /* balloon triangle */
-  .balloon:after {
-      content: "▲";
-      text-align: center;
-      display: block;
-      position: absolute;
-      color: inherit;
-      top: 120px;
-      left: 0;
-      right: 0;
-      margin: auto;
-  }
-  
-  
-  /* balloon float animation */
-  
-  
-  
-  @keyframes float {
-      0% {
-          bottom: -150px; /* Start position off-screen */
-          opacity: 1;
-      }
-      100% {
-          bottom: 300vh; /* Move to top of the screen */
-          opacity: 0;
-      }
-  }
-  
+#ribbonHeader {
+    cursor: move;
+    z-index: 10;
+    background-color: #a2dfa2;
+    border: 1px solid #a2dfa2;
+    width: 5vw;
+    height: 100%;
+    color: #fff;   
+    display: flex;
+}
+
+#ribbonHeader p {
+    font-family: "Source Code Pro", monospace;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    margin: 0;
+    padding: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
