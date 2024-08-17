@@ -1,6 +1,6 @@
 // test flag to overwrite validname and validbirthday
 /** @todo change this to false */
-const test = true;
+const test = false;
 const micTest = false;
 
 let blowed = false;
@@ -21,13 +21,14 @@ function process() {
     var fromText = document.getElementById("from").value;
 
 
-    if ((validname(nameText) && validname(fromText) && validbirthday(dobText)) || test) {
+    if ((validname(nameText, "name") && validbirthday(dobText)) &&  validname(fromText, "from") || test) {
         // change animation to slide out
         let card = document.getElementById("Card");
         card.style.animation = "slideOut 2s";
         card.style.animationFillMode = "forwards";
     } else {
         invalidAnim();
+        return;
     }
 
     var cake = document.getElementById("cake");
@@ -284,15 +285,16 @@ function pushDownBanner() {
 /**
  * Function to validate the name input
  * @param {String} nameText
+ * @param {String} elementId
  * @returns {Boolean}
  */
-function validname(nameText) {
+function validname(nameText, elementId) {
     if (nameText == "") {
         // change the color of the input field border
-        document.getElementById("name").style.border = "1px solid red";
+        document.getElementById(elementId).style.border = "1px solid red";
         return false;
     }
-    document.getElementById("name").style.border = "1px solid hsl(266, 59%, 60%)";
+    document.getElementById(elementId).style.border = "1px solid hsl(266, 59%, 60%)";
     return true;
 }
 
@@ -650,7 +652,7 @@ function ribbonButton() {
 // Make the DIV element draggable:
 document.addEventListener("DOMContentLoaded", function () {
     dragElement(document.getElementById("ribbon"), -25, 0, false, 0, 0);
-    dragElement(document.getElementById("messageCard"), 0, 90, true, 10, 100);
+    dragElement(document.getElementById("messageCard"), 0, 90, true, 0, 100);
 });
 
 /**
@@ -748,7 +750,9 @@ function dragElement(elmnt, min, max, vertical, verticalmin, verticalmax) {
         }
         if (vertical) {
             let vh = window.innerHeight / 100;
-            if (elmnt.offsetTop < (verticalmin * vh)) {
+
+
+            if (initialTop < (verticalmin * vh)) {
                 if (window.getComputedStyle(elmnt).position == "absolute") {
                     elmnt.style.top = verticalmin + "vh";
                 } else {
@@ -756,7 +760,7 @@ function dragElement(elmnt, min, max, vertical, verticalmin, verticalmax) {
                     elmnt.style.top = initialTop + "px";
                 }
             }
-            if (elmnt.offsetTop > verticalmax * vh) {
+            if (initialTop > verticalmax * vh) {
                 if (window.getComputedStyle(elmnt).position == "absolute") {
                     elmnt.style.top = verticalmax + "vh";
                 } else {

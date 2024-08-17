@@ -275,56 +275,6 @@ function pushDownBanner() {
     }
 }
 
-// /**
-//  * Function to validate the name input
-//  * @param {String} nameText
-//  * @returns {Boolean}
-//  */
-// function validname(nameText) {
-//     if (nameText == "") {
-//         // change the color of the input field border
-//         document.getElementById("name").style.border = "1px solid red";
-//         return false;
-//     }
-//     document.getElementById("name").style.border = "1px solid hsl(266, 59%, 60%)";
-//     return true;
-// }
-
-// /**
-//  * Function to validate the birthday input
-//  * @param {String} dobText
-//  * @returns {Boolean}
-//  */
-// function validbirthday(dobText) {
-//     if (dobText == "") {
-//         // change the color of the input field border
-//         document.getElementById("dob").style.border = "1px solid red";
-//         return false;
-//     }
-//     // check if the date is complete
-//     let date = new Date(dobText);
-//     if (date == "Invalid Date") {
-//         document.getElementById("dob").style.border = "1px solid red";
-//         return false;
-//     }
-//     document.getElementById("dob").style.border = "1px solid hsl(266, 59%, 60%)";
-//     return true;
-// }
-
-/**
- * Function to animate the card when the input is invalid
- */
-function invalidAnim() {
-    let card = document.getElementById("Card");
-    card.style.animation = "invalidAnim 0.5s";
-    card.style.animationFillMode = "forwards";
-
-    // reset the animation
-    setTimeout(function () {
-        card.style.animation = "none";
-    }, 1000);
-}
-
 
 /**
  * Function to flavor the cake
@@ -427,14 +377,22 @@ function generateBalloons() {
     const container = document.getElementById('balloonContainer');
 
     // Random number of balloons
-    const balloonCount = Math.floor(Math.random() * 5) + 15;
+    // if mobile generate between 5 and 8 balloons
+    // if desktop generate between 15 and 20 balloons
+    const isMobile = window.innerWidth <= 800;
 
+    // Random number of balloons
+    if (isMobile){
+        var balloonCount = Math.floor(Math.random() * 3) + 5;
+    }
+    else{
+        var balloonCount = Math.floor(Math.random() * 5) + 15;
+    }
     for (let i = 0; i < balloonCount; i++) {
         const balloon = createBalloon();
         container.appendChild(balloon);
     }
 }
-
 
 
 
@@ -471,17 +429,17 @@ function webaudio_tooling_obj() {
     // Check if the browser supports getUserMedia and get the microphone input
     if (!navigator.getUserMedia)
         navigator.getUserMedia =
-        navigator.getUserMedia ||
-        navigator.webkitGetUserMedia ||
-        navigator.mozGetUserMedia ||
-        navigator.msGetUserMedia;
+            navigator.getUserMedia ||
+            navigator.webkitGetUserMedia ||
+            navigator.mozGetUserMedia ||
+            navigator.msGetUserMedia;
 
     if (navigator.getUserMedia) {
         navigator.getUserMedia(
-        { audio: true },
-        start_microphone, () => {
-            console.log("error getting microphone input");
-        }
+            { audio: true },
+            start_microphone, () => {
+                console.log("error getting microphone input");
+            }
         );
     } else {
         alert("getUserMedia not supported in this browser.");
@@ -501,14 +459,14 @@ function webaudio_tooling_obj() {
     function showData(array, rows, label) {
         // console.log("__________ " + label);
         array.slice(0, rows).forEach(value => {
-        if (value > 180) {
-            // console.log("Loud sound detected!" + value);
-            turnCandleOFF();
-        }
+            if (value > 180) {
+                // console.log("Loud sound detected!" + value);
+                turnCandleOFF();
+            }
         });
         if (checkCandlesOFF()) {
             // console.log("All candles are off!");
-            if(blowed == false){
+            if (blowed == false) {
                 blowed = true;
                 generateBalloons();
                 pushDownBanner();
@@ -542,10 +500,10 @@ function webaudio_tooling_obj() {
         scriptProcessor.connect(gainNode);
 
         scriptProcessor.onaudioprocess = function () {
-        // get the average for the first channel
-        const array = new Uint8Array(analyserNode.frequencyBinCount);
-        analyserNode.getByteFrequencyData(array);
-        showData(array, 100, "from fft");
+            // get the average for the first channel
+            const array = new Uint8Array(analyserNode.frequencyBinCount);
+            analyserNode.getByteFrequencyData(array);
+            showData(array, 100, "from fft");
 
         };
     }
@@ -612,10 +570,10 @@ function removeCandles() {
 /**
  * Function to make the message card appear
  */
-function messageCardAppear(){
+function messageCardAppear() {
     let messageContainer = document.getElementById("cardContainer");
     messageContainer.style.display = "block";
-    messageContainer.style.animation = "slideInCard 2s"; 
+    messageContainer.style.animation = "slideInCard 2s";
     messageContainer.style.animationFillMode = "forwards";
     explode();
 }
@@ -623,107 +581,147 @@ function messageCardAppear(){
 /**
  * Function to for ribbon button
  */
-function ribbonButton(){
+function ribbonButton() {
     const cardContainer = document.querySelector('#cardContainer');
     cardContainer.style.display = "block";
     cardContainer.classList.toggle('appear');
 }
-
 
 /* Drag ribbon ---------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------*/
 
 // Make the DIV element draggable:
-document.addEventListener("DOMContentLoaded", function() {
-    dragElement(document.getElementById("ribbon"), -25, 0, false);
-    dragElement(document.getElementById("messageCard"), 0, 90, true);
+document.addEventListener("DOMContentLoaded", function () {
+    dragElement(document.getElementById("ribbon"), -25, 0, false, 0, 0);
+    dragElement(document.getElementById("messageCard"), 0, 90, true, 0, 100);
 });
 
-function dragElement(elmnt, min, max, vertical) {
-  var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-  var initialLeft = 0;
-  var initialTop = 0;
-  if (document.getElementById(elmnt.id + "Header")) {
-    // if present, the header is where you move the DIV from:
-    document.getElementById(elmnt.id + "Header").onmousedown = dragMouseDown;
-  } else {
-    // otherwise, move the DIV from anywhere inside the DIV:
-    elmnt.onmousedown = dragMouseDown;
-  }
-
-  function dragMouseDown(e) {
-    e = e || window.event;
-    e.preventDefault();
-    // get the mouse cursor position at startup:
-    pos3 = e.clientX;
-    pos4 = e.clientY;
-    document.onmouseup = closeDragElement;
-    // call a function whenever the cursor moves:
-    document.onmousemove = elementDrag;
-  }
-
-  function elementDrag(e) {
-    e = e || window.event;
-    e.preventDefault();
-    // calculate the new cursor position:
-    pos1 = pos3 - e.clientX;
-    pos2 = pos4 - e.clientY;
-    pos3 = e.clientX;
-    pos4 = e.clientY;
-    // set the element's new position:
-
-    if(window.getComputedStyle(elmnt).position == "absolute"){
-
-        elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
-        if (vertical) {
-            elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-        }
-    }else {
-        
-        initialLeft = initialLeft - pos1;
-
-        elmnt.style.left = initialLeft + "px";
-        if (vertical) {
-            initialTop = initialTop - pos2;
-            elmnt.style.top = initialTop + "px";
-        }
+/**
+ * Function to make an element draggable
+ * @param {Element} elmnt
+ * @param {Number} min
+ * @param {Number} max
+ * @param {Boolean} vertical
+ * @param {Number} verticalmin
+ * @param {Number} verticalmax
+ */
+function dragElement(elmnt, min, max, vertical, verticalmin, verticalmax) {
+    var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+    var initialLeft = 0;
+    var initialTop = 0;
+    if (document.getElementById(elmnt.id + "Header")) {
+        // if present, the header is where you move the DIV from:
+        document.getElementById(elmnt.id + "Header").onmousedown = dragMouseDown;
+    } else {
+        // otherwise, move the DIV from anywhere inside the DIV:
+        elmnt.onmousedown = dragMouseDown;
     }
 
-    // make a maximum and minimum position for the ribbon
+    /**
+     * Function to start dragging the element
+     * @param {Event} e 
+     */
+    function dragMouseDown(e) {
+        e = e || window.event;
+        e.preventDefault();
+        // get the mouse cursor position at startup:
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        document.onmouseup = closeDragElement;
+        // call a function whenever the cursor moves:
+        document.onmousemove = elementDrag;
+    }
 
+    /**
+     * Function to drag the element
+     * @param {Event} e
+     */
+    function elementDrag(e) {
+        e = e || window.event;
+        e.preventDefault();
+        // calculate the new cursor position:
+        pos1 = pos3 - e.clientX;
+        pos2 = pos4 - e.clientY;
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        // set the element's new position:
 
+        if (window.getComputedStyle(elmnt).position == "absolute") {
 
-    let vw = window.innerWidth / 100;
+            elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+            if (vertical) {
+                elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+            }
+        } else {
 
-    if (elmnt.offsetLeft < (min * vw)) {
-        if(window.getComputedStyle(elmnt).position == "absolute"){
-            elmnt.style.left = min + "vw";
-        }else{
-            initialLeft = 0;
+            initialLeft = initialLeft - pos1;
+
             elmnt.style.left = initialLeft + "px";
+            if (vertical) {
+                initialTop = initialTop - pos2;
+                elmnt.style.top = initialTop + "px";
+            }
         }
-    }
-    if (elmnt.offsetLeft > max * vw) {
-        if(window.getComputedStyle(elmnt).position == "absolute"){
-            elmnt.style.left = max + "vw";
-            // make the message card appear
-            messageCardAppear();
-            // hide the ribbon
-            elmnt.style.display = "none";
-        }else{
-            initialLeft = 0;
-            elmnt.style.left = initialLeft + "px";
-        }
-    }
-    
-  }
 
-  function closeDragElement() {
-    // stop moving when mouse button is released:
-    document.onmouseup = null;
-    document.onmousemove = null;
-  }
+        // make a maximum and minimum position for the ribbon
+
+
+
+        let vw = window.innerWidth / 100;
+
+        if (elmnt.offsetLeft < (min * vw)) {
+            if (window.getComputedStyle(elmnt).position == "absolute") {
+                elmnt.style.left = min + "vw";
+            } else {
+                initialLeft = 0;
+                elmnt.style.left = initialLeft + "px";
+            }
+        }
+        if (elmnt.offsetLeft > max * vw) {
+            if (window.getComputedStyle(elmnt).position == "absolute") {
+                elmnt.style.left = max + "vw";
+                // make the message card appear
+                messageCardAppear();
+                // hide the ribbon
+                elmnt.style.display = "none";
+            } else {
+                initialLeft = 0;
+                elmnt.style.left = initialLeft + "px";
+            }
+        }
+        if (vertical) {
+            let vh = window.innerHeight / 100;
+
+
+            if (initialTop < (verticalmin * vh)) {
+                if (window.getComputedStyle(elmnt).position == "absolute") {
+                    elmnt.style.top = verticalmin + "vh";
+                } else {
+                    initialTop = 0;
+                    elmnt.style.top = initialTop + "px";
+                }
+            }
+            if (initialTop > verticalmax * vh) {
+                if (window.getComputedStyle(elmnt).position == "absolute") {
+                    elmnt.style.top = verticalmax + "vh";
+                } else {
+                    initialTop = 0;
+                    elmnt.style.top = initialTop + "px";
+                }
+            }
+        }
+
+    }
+
+    /**
+     * Function to stop dragging the element
+     */
+    function closeDragElement() {
+        // stop moving when mouse button is released:
+        document.onmouseup = null;
+        document.onmousemove = null;
+    }
 }
 
 
@@ -733,9 +731,13 @@ function dragElement(elmnt, min, max, vertical) {
 const colors = ['#D8589F', '#EE4523', '#FBE75D', '#4FC5DF'];
 const bubbles = 100;
 
+/**
+ * Function to explode the confetti
+ * The confetti will come from the left and right side of the screen
+ */
 function explode() {
-    const x = window.innerWidth; 
-    const y = window.innerHeight; 
+    const x = window.innerWidth;
+    const y = window.innerHeight;
 
     let particles1 = [];
     let particles2 = [];
@@ -745,9 +747,9 @@ function explode() {
     let ctx1 = c1.getContext('2d');
     let ctx2 = c2.getContext('2d');
 
-    c1.style.position = 'absolute';
-    c1.style.left = (0 - (x/2)) + 'px'; // Position the canvas at the right edge
-    c1.style.top = (0 - (y/15)) + 'px'; // Adjust the top position to center around (x, y)
+    c1.style.position = 'fixed';
+    c1.style.left = (0 - (x / 2)) + 'px'; // Position the canvas at the right edge
+    c1.style.top = (0 - (y / 15)) + 'px'; // Adjust the top position to center around (x, y)
     c1.style.pointerEvents = 'none';
     c1.style.width = x + 'px';
     c1.style.height = y + 'px';
@@ -756,9 +758,9 @@ function explode() {
     c1.height = y * ratio;
     document.body.appendChild(c1);
 
-    c2.style.position = 'absolute';
-    c2.style.left = (x/ 2) + 'px'; // Position the canvas at the left edge
-    c2.style.top = ( 0 - (y/15)) + 'px'; // Adjust the top position to center around (x, y)
+    c2.style.position = 'fixed';
+    c2.style.left = (x / 2) + 'px'; // Position the canvas at the left edge
+    c2.style.top = (0 - (y / 15)) + 'px'; // Adjust the top position to center around (x, y)
     c2.style.pointerEvents = 'none';
     c2.style.width = x + 'px';
     c2.style.height = y + 'px';
@@ -767,7 +769,7 @@ function explode() {
     c2.height = y * ratio;
     document.body.appendChild(c2);
 
-    for(let i = 0; i < bubbles; i++) {
+    for (let i = 0; i < bubbles; i++) {
         const angle = Math.random() * 90 - 45;
         const speed = r(5, 10);
 
@@ -776,7 +778,7 @@ function explode() {
             y: c1.height / 2,
             radius: r(3, 8),
             color: colors[Math.floor(Math.random() * colors.length)],
-            angle: angle, 
+            angle: angle,
             speed: speed,
             friction: .99,
             fade: .02,
@@ -790,7 +792,7 @@ function explode() {
             y: c2.height / 2,
             radius: r(3, 8),
             color: colors[Math.floor(Math.random() * colors.length)],
-            angle: angle, 
+            angle: angle,
             speed: speed,
             friction: .99,
             fade: .02,
@@ -804,13 +806,22 @@ function explode() {
     render(particles2, ctx2, c2.width, c2.height, "right");
 }
 
+/**
+ * Function to render the confetti
+ * @param {Array} particles
+ * @param {CanvasRenderingContext2D} ctx
+ * @param {Number} width
+ * @param {Number} height
+ * @param {String} direction
+ * @returns {CanvasRenderingContext2D}
+ */
 function render(particles, ctx, width, height, direction) {
     requestAnimationFrame(() => render(particles, ctx, width, height, direction));
     ctx.clearRect(0, 0, width, height);
 
     particles.forEach((p) => {
         // Move particles based on velocity
-        if(direction == "left"){
+        if (direction == "left") {
             p.x += p.xVel; // Move particles to the left
         }
         else {
@@ -824,7 +835,7 @@ function render(particles, ctx, width, height, direction) {
         p.radius -= p.fade;
         p.opacity -= 0.005;
 
-        if(p.opacity < 0 || p.radius < 0) return;
+        if (p.opacity < 0 || p.radius < 0) return;
 
         ctx.beginPath();
         ctx.globalAlpha = p.opacity;
