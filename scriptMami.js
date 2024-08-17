@@ -16,8 +16,8 @@ function process() {
     var dobText = "1975-08-17";
     var e = document.getElementById("flavour");
     var flavourText = e.options[e.selectedIndex].text;
-    var messageText = "";//UPDATE LATER
-    var fromText = "NadCaWin";//UPDATE LATER
+    var messageText = "We hope you live healthily and happily";//UPDATE LATER
+    var fromText = "NadCaWin";
 
         // change animation to slide out
         let card = document.getElementById("Card");
