@@ -9,6 +9,9 @@ body {
     flex-direction: column;
     margin: 0;
     padding: 0;
+    overflow : hidden;
+    touch-action: none;
+    overscroll-behavior: contain;
 }
 
 .topContainer{

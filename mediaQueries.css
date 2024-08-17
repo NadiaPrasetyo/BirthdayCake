@@ -7,7 +7,7 @@
     #removeCandles {
         font-size: 90%;
     }
-    
+
 }
 
 /* Media query for mobile screens */
@@ -20,12 +20,15 @@
         left: calc(50% - 45vw);
     }
 
-    .submit, input,
-    textarea, select{
+    .submit,
+    input,
+    textarea,
+    select {
         width: 100;
     }
 
-    #ribbonHeader, #ribbonBody {
+    #ribbonHeader,
+    #ribbonBody {
         display: none;
     }
 
@@ -33,6 +36,7 @@
         0% {
             left: -50vw;
         }
+
         100% {
             left: 0vw;
         }
@@ -52,5 +56,23 @@
         height: 50vh;
     }
 
-    
+    .balloon {
+        width: 50px;
+        height: 55px;
+    }
+
+    /* balloon sticks */
+    .balloon:before {
+        height: 25px;
+        width: 0.2px;
+        padding: 0.2px;
+        top: 55px;
+    }
+
+    /* balloon triangle */
+    .balloon:after {
+        top: 50px;
+    }
+
+
 }
