@@ -728,6 +728,7 @@ textarea {
     pointer-events: auto;
     cursor: move;
     position: relative;
+    max-width: 335px;
     width: 335px;
     height: 400px;
     background-color: rgb(215, 173, 235);
