@@ -24,7 +24,7 @@ This webpage involves html, javascript, and css with no frameworks.
   ### Colours
   The colours used in the whole web page can be altered from the **style.css** document.
   ### Cake Flavours
-  Adding cake flavours can be done by adding an option value within the myForm in the flavour select element within the form in the **index.html** file. Listeners to the specified new flavor can be added in the flavorCake function in the **scrip.js** file as a continuation of the if else statements.
+  Adding cake flavours can be done by adding an option value within the myForm in the flavour select element within the form in the **index.html** file. Listeners to the specified new flavor can be added in the flavorCake function in the **script.js** file as a continuation of the if else statements.
   ### Cake Textures
   Cake textures should be stored within the *cakes/* directory and referenced from the flavorCake function in the **script.js** file. It is added as a background image of the desired layer of the cake. @see Rum & Raisin or Funfetti cakes as examples in flavorCake.
 ## References
