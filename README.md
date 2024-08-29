@@ -2,9 +2,9 @@
 Website to celebrate birthdays
 
 ## Contributors
-NadiaPrasetyo
-Caca-XP
-WinaP
+- NadiaPrasetyo
+- Caca-XP
+- WinaP
 
 ## How to Use
 The default webpage will display an input form where the user can input specific details such as name (from and to), birthdate, desired cake flavour, and message.
