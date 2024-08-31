@@ -475,11 +475,15 @@ body {
 }
 
 #first_message {
-    visibility: hidden;
+    display: none;
 }
 
 #second_message {
-    visibility: hidden;
+    display: none;
+}
+
+#blow {
+    display: none;
 }
 
 /* Form */
@@ -524,6 +528,7 @@ textarea, select {
     /* Uniform text field size */
     font-family: "Source Code Pro", monospace;
     width: 300px;
+    max-width: 300px;
     box-sizing: border-box;
     /* Match form field borders */
     border: 1px solid  hsl(266, 59%, 60%);
@@ -550,6 +555,7 @@ textarea {
     font-family: "Source Code Pro", monospace;
     border-radius: 5px;
     width: 300px;
+    max-width: 300px;
     padding: 5px;
     background-color: pink;
     border-color: #ff9999;
@@ -598,6 +604,7 @@ textarea {
     position: absolute;
     top: 100px;
     width: 335px;
+    max-width: 335px;
     /* make position horizontally in the center */
     left: calc(50% - 335px/2);
     background-color: rgb(230,215,255);

@@ -71,6 +71,11 @@ function process() {
             webaudio_tooling_obj();
         }, 200 * age);
     }
+    let instructions = document.getElementById("instruct");
+    instructions.style.display = "block";
+    let blow = document.getElementById("blow");
+    blow.style.display = "block";
+    
 }
 
 /**
@@ -153,7 +158,7 @@ async function ageCandles(age) {
  */
 function addCandle(eventData) {
     let second_message = document.getElementById("second_message");
-    second_message.style.visibility = "visible";
+    second_message.style.display = "block";
     let ribbon = document.getElementById("ribbon");
     if (ribbonPulled == false) {
         ribbon.style.animation = "pullRibbon 2s";
@@ -532,6 +537,8 @@ function webaudio_tooling_obj() {
             stop_microphone();
             let remove = document.getElementById("removeCandles");
             remove.style.visibility = "visible";
+            let blow = document.getElementById("blow");
+            blow.style.display = "none";
             explode();
         }
 
@@ -614,11 +621,9 @@ function removeCandles() {
     let remove = document.getElementById("removeCandles");
     remove.style.visibility = "hidden";
     let first_message = document.getElementById("first_message");
-    let instructions = document.getElementById("instruct");
 
-    // Display the instructions and the first message
-    instructions.style.display = "block";
-    first_message.style.visibility = "visible";
+    // Display the the first message
+    first_message.style.display = "block";
 
     // Add the addCandle event listener to the cake
     // From now on the user can add candles to the cake by clicking on it

@@ -13,6 +13,17 @@
 /* Media query for mobile screens */
 @media screen and (max-width: 800px) {
 
+    #Card {
+        width: 90vw;
+    }
+
+    .submit,
+    input,
+    textarea,
+    select {
+        width: calc(90vw - 35px);
+    }
+
     /* change all the width and font */
 
     #ribbonHeader,
@@ -65,16 +76,8 @@
 
 }
 
-@media screen and (max-width: 370px) {
+@media screen and (max-width: 350px){
     #Card {
-        width: 90vw;
         left: calc(50% - 45vw);
-    }
-
-    .submit,
-    input,
-    textarea,
-    select {
-        width: calc(90vw - 35px);
     }
 }
