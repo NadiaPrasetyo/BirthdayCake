@@ -2,9 +2,15 @@
 Website to celebrate birthdays
 
 ## Contributors
-- NadiaPrasetyo
-- Caca-XP
-- WinaP
+- [NadiaPrasetyo](https://github.com/NadiaPrasetyo)
+- [Caca-XP](https://github.com/Caca-XP)
+- [WinaP](https://github.com/winap)
+
+## Try it yourself
+
+https://nadiaprasetyo.github.io/BirthdayCake/
+
+[Mum special](https://nadiaprasetyo.github.io/BirthdayCake/birthday.html)
 
 ## How to Use
 The default webpage will display an input form where the user can input specific details such as name (from and to), birthdate, desired cake flavour, and message.
@@ -28,4 +34,6 @@ This webpage involves html, javascript, and css with no frameworks.
   ### Cake Textures
   Cake textures should be stored within the *cakes/* directory and referenced from the flavorCake function in the **script.js** file. It is added as a background image of the desired layer of the cake. @see Rum & Raisin or Funfetti cakes as examples in flavorCake.
 ## References
-message card reference: https://www.youtube.com/watch?v=9CAqojHY42o
+[Message card reference](https://www.youtube.com/watch?v=9CAqojHY42o)
+[Birthday idea](https://www.instagram.com/mewtru/reel/C1VnbuTRnO7/?img_index=mewtru)
+[Inspiration link from mewtru](https://birthday.mewtru.com/)
